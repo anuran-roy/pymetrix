@@ -17,7 +17,7 @@ def foo():
     print(f"Hello world {randint(0,1000000)}!")
 ```
 
-You add the following lines of code:
+After adding the required lines, the code will look something like this:
 
 ```
 from random import randint
