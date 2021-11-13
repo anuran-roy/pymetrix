@@ -1,0 +1,11 @@
+README.md
+setup.py
+analyx/__init__.py
+analyx/endpoints.py
+analyx/flow.py
+analyx/metrics.py
+analyx.egg-info/PKG-INFO
+analyx.egg-info/SOURCES.txt
+analyx.egg-info/dependency_links.txt
+analyx.egg-info/not-zip-safe
+analyx.egg-info/top_level.txt
