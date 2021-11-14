@@ -1,8 +1,10 @@
+from typing import NewType, Dict, List
+
 class Endpoint():
     def __init__(self, **kwargs):
         self.hits = kwargs['hits'] if "hits" in kwargs.keys() else 0
         self.endpoint = kwargs['endpoint'] if "endpoint" in kwargs.keys() else None
-        self.id = kwargs['name'] if "name" in kwargs.keys() else None
+        self.id = kwargs['id'] if "id" in kwargs.keys() else None
     
     @property
     def hitcount(self):
@@ -26,3 +28,5 @@ class Endpoint():
             'id': self.id,
             'hits': self.hits,
         }
+
+EndpointType = NewType('EndpointType', Endpoint)

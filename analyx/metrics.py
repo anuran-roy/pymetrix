@@ -1,17 +1,18 @@
 from .endpoints import Endpoint
-from .flow import Flow
-
+# from .flow import Flow
+from typing import Dict, List, Any
 
 
 class MetricsBase:
     pass
 
+
 class Metrics(MetricsBase):
     def __init__(self, loc, **kwargs):
         self.id = loc
-        self.endpoints = []
-        
-    
+        self.endpoints: List = []
+        self.db = kwargs["db"] if "db" in kwargs.keys() else None
+
     def add_to_analytics(self, func):
         functions = func() if type(func) == type(lambda x: x) else func
         # print(f"\n\n{functions}\n\n")
@@ -23,31 +24,28 @@ class Metrics(MetricsBase):
                 loc = existing_endpoint_names.index(functions[i].__name__)
                 self.endpoints[loc]["endpoint"].hits += 1
             else:
-                new_endpoint = Endpoint(name=functions[i].__name__, endpoint=functions[i], hits=1)
+                new_endpoint = Endpoint(id=functions[i].__name__, endpoint=functions[i], hits=1)
                 self.endpoints.append({'id': functions[i].__name__, 'endpoint': new_endpoint})
-
 
     def display(self, **kwargs):
 
         # print(f"\n\n{self.id}\n\n")
         ep = None
-        
+
         if 'id' in kwargs.keys():
             for i in self.endpoints:
                 if i['id'] == kwargs['id']:
                     ep = [i]
                     break
         else:
-            ep = self.endpoints  
-        
+            ep = self.endpoints
+
         print("\n\nId:\tHits\n")
-        
+
         for i in ep:
             data = i['endpoint'].stats()
-            
+
             for j in data.keys():
                 print(f"{j}: {data[j]}", end="\t")
 
             print()
-            
-
