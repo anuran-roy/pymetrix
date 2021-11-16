@@ -64,6 +64,7 @@ obj1.comesBefore(obj4)
 obj4.comesAfter(obj5)
 obj5.comesAfter(obj1)
 obj5.comesAfter(obj2)
+obj5.comesBefore(obj2)
 
 graph.addLayer(l3)
 graph.addLayer(l4)
@@ -78,7 +79,7 @@ print(graph.visualize)
 
 
 #Block to visualize network
-G = nx.Graph()
+G = nx.DiGraph()
 net = graph.visualize
 
 G.add_nodes_from([x[0] for x in net])
