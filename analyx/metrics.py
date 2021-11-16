@@ -1,6 +1,6 @@
 from .endpoints import Endpoint
-# from .flow import Flow
-from typing import Dict, List, Any
+# from .flow import Flow, FlowNode, FlowLayer, FlowNodeType, FlowLayerType
+from typing import List
 
 
 class MetricsBase:
@@ -14,7 +14,8 @@ class Metrics(MetricsBase):
         self.db = kwargs["db"] if "db" in kwargs.keys() else None
 
     def add_to_analytics(self, func):
-        functions = func() if type(func) == type(lambda x: x) else func
+        functions = func() \
+            if type(func) == type(lambda x: x) else func
         # print(f"\n\n{functions}\n\n")
         existing_endpoint_names = [x['id'] for x in self.endpoints]
         # new_endpoint_names = [x.__name__ for x in functions]
@@ -24,8 +25,11 @@ class Metrics(MetricsBase):
                 loc = existing_endpoint_names.index(functions[i].__name__)
                 self.endpoints[loc]["endpoint"].hits += 1
             else:
-                new_endpoint = Endpoint(id=functions[i].__name__, endpoint=functions[i], hits=1)
-                self.endpoints.append({'id': functions[i].__name__, 'endpoint': new_endpoint})
+                new_endpoint = Endpoint(id=functions[i].__name__,
+                                        endpoint=functions[i], hits=1)
+                self.endpoints.append({
+                    'id': functions[i].__name__,
+                    'endpoint': new_endpoint})
 
     def display(self, **kwargs):
 

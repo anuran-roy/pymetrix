@@ -1,17 +1,22 @@
+from . import settings, errors
 from .endpoints import EndpointType
 from typing import List, Dict, Any, NewType
 from uuid import uuid4
+import json
 
 
 class FlowNode:
     def __init__(self, endpoint: EndpointType, **kwargs):
-        self._id = kwargs["id"] if "name" in kwargs.keys() else uuid4()
-        self.endpoint = endpoint
+        self._name = kwargs["name"] if "name" in kwargs.keys() \
+            else str(uuid4().hex)
+        self._endpoint = endpoint
         self._parents: List = []
         self._children: List = []
-    
+        self.last_inserted: Any = None
+        self._marked: int = 0
+
     def __str__(self):
-        print(f"Node ID: {self._id}")
+        print(f"Node ID: {self._name}")
         print(f"Corresponding Endpoint: \n{self.endpoint}")
         print(f"Parent Nodes: {self._parents}")
         print(f"Child Nodes: {self._children}")
@@ -35,22 +40,41 @@ class FlowNode:
         return self._children
 
     @children.setter
-    def next(self, children_ob):
+    def children(self, children_ob):
         if type(children_ob) == type([]):
             self._children += children_ob
         else:
             self._children.append(children_ob)
 
+    def insert(self, inserted_node):
+        if self.last_inserted.endpoint.endpoint != \
+                inserted_node.endpoint.endpoint:
+            if self.last_inserted is not None:
+                self.last_inserted._children.append(inserted_node)
+                inserted_node._parents.append(self.last_inserted)
+
+            self.last_inserted = inserted_node
+
+    # def insertPrevious(self, inserted_node):
+    #     if self.last_inserted.endpoint.endpoint != \
+    #           inserted_node.endpoint.endpoint:
+    #         if self.last_inserted is not None:
+    #             self.last_inserted._children.append(inserted_node)
+    #             inserted_node._parents.append(self.last_inserted)
+
+    #         self.last_inserted = inserted_node
+
     @property
     def serialize(self) -> Dict:
         return {
-            'node_id': self._id,
+            'node_id': self._name,
             'parents': self._parents,
-            'next': self._children,
+            'children': self._children,
+            'endpoint': self._endpoint.serialize,
         }
 
     def search(self, **kwargs):
-        print(f"\t\t-> Searching at Node level... Node {self._id}")
+        print(f"\t\t-> Searching at Node level... Node {self._name}")
         k = set(kwargs.keys())
         if "endpoint_id" in k:
             if self.endpoint.id == kwargs["endpoint_id"]:
@@ -77,7 +101,7 @@ class FlowNode:
                 return None
 
         if "node" in k:
-            if self._id == kwargs["node_id"]:
+            if self._name == kwargs["node_id"]:
                 return self
             else:
                 return None
@@ -96,22 +120,31 @@ class FlowNode:
 
         return None
 
+    def prettyprint(self):
+        print("\n\n=================== Node Contents ===================\n\n")
+        print(json.dumps(self.serialize, indent=4))
+
 
 FlowNodeType = NewType('FlowNodeType', FlowNode)
 
 
 class FlowLayer:
     def __init__(self, **kwargs):
-        self._name = kwargs["label"] if "label" in kwargs.keys() else uuid4()
-        self._previous = kwargs["previous"] if "previous" in kwargs.keys() else None
+        self._name = kwargs["label"]\
+            if "label" in kwargs.keys() else str(uuid4().hex)
+        self._previous = kwargs["previous"] \
+            if "previous" in kwargs.keys() else None
         self._next = kwargs["next"] if "next" in kwargs.keys() else None
         self._nodes: List = []
 
     def addNode(self, node: FlowNodeType, index=-1):
-        if index != -1:
-            self._nodes.add(index, node)
+        if node not in self._nodes:
+            if index != -1:
+                self._nodes.add(index, node)
+            else:
+                self._nodes.append(node)
         else:
-            self._nodes.append(node)
+            raise errors.DuplicateError(what=node._name, where=self._name)
 
     @property
     def nodes(self):
@@ -163,13 +196,18 @@ class FlowLayer:
         else:
             return results
 
+    def prettyprint(self):
+        print("\n\n=================== Layer Contents ===================\n\n")
+        print(json.dumps(self.serialize, indent=4))
+
 
 FlowLayerType = NewType('FlowLayerType', FlowLayer)
 
 
 class Flow:
     def __init__(self, **kwargs):
-        self._name = kwargs["name"] if "name" in kwargs.keys() else uuid4()
+        self._name = kwargs["name"] \
+            if "name" in kwargs.keys() else str(uuid4().hex)
         self._graph: List = []
 
     @property
@@ -181,14 +219,17 @@ class Flow:
         self._graph = graphobj
 
     # @property
-    def addLayer(self, layer, **kwargs):
-        if "index" in kwargs.keys():
-            left = self._graph[:kwargs["index"]]
-            right = self._graph[kwargs["index"]:]
-            left.append(layer)
-            self._graph = left + right
+    def addLayer(self, layer: FlowLayerType, **kwargs):
+        if layer not in self._graph:
+            if "index" in kwargs.keys():
+                left = self._graph[:kwargs["index"]]
+                right = self._graph[kwargs["index"]:]
+                left.append(layer)
+                self._graph = left + right
+            else:
+                self._graph.append(layer)
         else:
-            self._graph.append(layer)
+            raise errors.DuplicateError(what=layer._name, where=self._name)
 
     @property
     def serialize(self) -> Dict:
@@ -203,7 +244,8 @@ class Flow:
     # Search methods:
 
     def search(self, **kwargs):
-        print("Searching at Graph level...")
+        if settings.VERBOSE:
+            print("Searching at Graph level...")
         results = []
         for i in self._graph:
             ob = i.search(**kwargs)
@@ -216,6 +258,10 @@ class Flow:
         else:
             return results
 
+    def detect_remove_cycles(self):
+        for i in self._graph:
+            pass
+
     def exists(self, **kwargs):
         try:
             if self.search(**kwargs) is not None:
@@ -224,3 +270,10 @@ class Flow:
                 return False
         except Exception:
             return None
+
+    def prettyprint(self):
+        print("\n\n=================== Graph Contents ===================\n\n")
+        print(json.dumps(self.serialize, indent=4))
+
+
+FlowType = NewType('FlowType', Flow)
