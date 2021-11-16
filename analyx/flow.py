@@ -9,7 +9,7 @@ class FlowNode:
     def __init__(self, endpoint: EndpointType, **kwargs):
         self._name = kwargs["name"] if "name" in kwargs.keys() \
             else str(uuid4().hex)
-        self._endpoint = endpoint
+        self._endpoint: EndpointType = endpoint
         self._parents: List = []
         self._children: List = []
         self.last_inserted: Any = None
@@ -17,9 +17,13 @@ class FlowNode:
 
     def __str__(self):
         print(f"Node ID: {self._name}")
-        print(f"Corresponding Endpoint: \n{self.endpoint}")
+        print(f"Corresponding Endpoint: ")
+        print(self._endpoint)
         print(f"Parent Nodes: {self._parents}")
         print(f"Child Nodes: {self._children}")
+
+        return f'"node_id": {self._name}, "endpoint": {self._endpoint}, "parents": {self._parents}, "children": {self._children}'
+            
 
     # def __repr__(self):
     #     pass
@@ -46,14 +50,20 @@ class FlowNode:
         else:
             self._children.append(children_ob)
 
-    def insert(self, inserted_node):
-        if self.last_inserted.endpoint.endpoint != \
-                inserted_node.endpoint.endpoint:
-            if self.last_inserted is not None:
-                self.last_inserted._children.append(inserted_node)
-                inserted_node._parents.append(self.last_inserted)
+    def comesBefore(self, inserted_node):
+        print(f"comesBefore function invoked!Inserted node=\n")
+        print(inserted_node)
+        if self.last_inserted is not None:
+            print("Branch 1 invoked!")
+            if self.last_inserted._endpoint.endpoint != \
+                    inserted_node._endpoint.endpoint:
+                self.last_inserted._children.append(inserted_node._endpoint)
+                inserted_node._parents.append(self.last_inserted._endpoint)
 
+                self.last_inserted = inserted_node
+        else:
             self.last_inserted = inserted_node
+            print("Branch 2 invoked!")
 
     # def insertPrevious(self, inserted_node):
     #     if self.last_inserted.endpoint.endpoint != \
@@ -119,6 +129,8 @@ class FlowNode:
                 return None
 
         return None
+
+    # def add
 
     def prettyprint(self):
         print("\n\n=================== Node Contents ===================\n\n")
