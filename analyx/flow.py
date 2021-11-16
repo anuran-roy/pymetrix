@@ -3,7 +3,7 @@ from .endpoints import EndpointType
 from typing import List, Dict, Any, NewType
 from uuid import uuid4
 import json
-
+import pprint
 
 class FlowNode:
     def __init__(self, endpoint: EndpointType, **kwargs):
@@ -17,8 +17,7 @@ class FlowNode:
 
     def __str__(self):
         print(f"Node ID: {self._name}")
-        print(f"Corresponding Endpoint: ")
-        print(self._endpoint)
+        print(f"Corresponding Endpoint: {self._endpoint}")
         print(f"Parent Nodes: {self._parents}")
         print(f"Child Nodes: {self._children}")
 
@@ -53,26 +52,22 @@ class FlowNode:
     def comesBefore(self, inserted_node):
         print(f"comesBefore function invoked!Inserted node=\n")
         print(inserted_node)
-        if self.last_inserted is not None:
+        if inserted_node not in self._children:
             print("Branch 1 invoked!")
-            if self.last_inserted._endpoint.endpoint != \
-                    inserted_node._endpoint.endpoint:
-                self.last_inserted._children.append(inserted_node._endpoint)
-                inserted_node._parents.append(self.last_inserted._endpoint)
-
-                self.last_inserted = inserted_node
+            self._children.append(inserted_node)
+            inserted_node._parents.append(self)
         else:
-            self.last_inserted = inserted_node
-            print("Branch 2 invoked!")
+            raise errors.DuplicateError(what=inserted_node._name, where=f"list of children of {self._name}")
 
-    # def insertPrevious(self, inserted_node):
-    #     if self.last_inserted.endpoint.endpoint != \
-    #           inserted_node.endpoint.endpoint:
-    #         if self.last_inserted is not None:
-    #             self.last_inserted._children.append(inserted_node)
-    #             inserted_node._parents.append(self.last_inserted)
-
-    #         self.last_inserted = inserted_node
+    def comesAfter(self, inserted_node):
+        print(f"comesAfter function invoked!Inserted node=\n")
+        print(inserted_node)
+        if inserted_node not in self._children:
+            print("Branch 1 invoked!")
+            self._parents.append(inserted_node)
+            inserted_node.children.append(self)
+        else:
+            raise errors.DuplicateError(what=inserted_node._name, where=f"list of children of {self._name}")
 
     @property
     def serialize(self) -> Dict:
@@ -130,11 +125,26 @@ class FlowNode:
 
         return None
 
-    # def add
+    @property
+    def pretty_serialize(self):
+        return {
+            'node_id': self._name,
+            'parents': [x._name for x in self._parents],
+            'children': [x._name for x in self._children],
+            'endpoint': self._endpoint.serialize,
+        }
+    
+    @property
+    def visualize(self):
+        nodes_pairs = []
+        nodes_pairs += [(self._name, x._name) for x in self._children]
+        nodes_pairs += [(x._name, self._name) for x in self._parents]
+
+        return nodes_pairs
 
     def prettyprint(self):
         print("\n\n=================== Node Contents ===================\n\n")
-        print(json.dumps(self.serialize, indent=4))
+        print(json.dumps(self.pretty_serialize, indent=4))
 
 
 FlowNodeType = NewType('FlowNodeType', FlowNode)
@@ -177,6 +187,26 @@ class FlowLayer:
             'layer_id': self._name,
             'nodes': serialized_layer
             }
+    
+    @property
+    def pretty_serialize(self) -> Dict:
+        serialized_layer: List = []
+
+        for i in self._nodes:
+            serialized_layer.append(i.pretty_serialize)
+
+        return {
+            'layer_id': self._name,
+            'nodes': serialized_layer
+            }
+
+    @property
+    def visualize(self):
+        nodes_pairs = []
+        for i in self._nodes:
+            nodes_pairs += i.visualize
+        
+        return nodes_pairs
 
     def search(self, **kwargs):
         print(f"\t->Searching at FlowLayer level: Layer {self._name}...")
@@ -210,7 +240,7 @@ class FlowLayer:
 
     def prettyprint(self):
         print("\n\n=================== Layer Contents ===================\n\n")
-        print(json.dumps(self.serialize, indent=4))
+        print(json.dumps(self.pretty_serialize, indent=4))
 
 
 FlowLayerType = NewType('FlowLayerType', FlowLayer)
@@ -253,6 +283,24 @@ class Flow:
             "layers": layers
         }
 
+    @property
+    def pretty_serialize(self) -> Dict:
+        layers: List = []
+        for i in self._graph:
+            layers.append(i.pretty_serialize)
+        return {
+            "flow_id": self._name,
+            "layers": layers
+        }
+
+    @property
+    def visualize(self):
+        nodes_pairs = []
+        for i in self._graph:
+            nodes_pairs += i.visualize
+        
+        return nodes_pairs
+
     # Search methods:
 
     def search(self, **kwargs):
@@ -285,7 +333,7 @@ class Flow:
 
     def prettyprint(self):
         print("\n\n=================== Graph Contents ===================\n\n")
-        print(json.dumps(self.serialize, indent=4))
+        print(json.dumps(self.pretty_serialize, indent=4))
 
 
 FlowType = NewType('FlowType', Flow)

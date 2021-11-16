@@ -1,4 +1,4 @@
-from typing import NewType  # , Dict, List
+from typing import NewType, Dict, List
 
 
 class Endpoint():
@@ -33,11 +33,11 @@ class Endpoint():
         }
 
     @property
-    def serialize(self):
+    def serialize(self) -> Dict:
         return {
-            "endpoint_id": f"{self.id}{self.endpoint}",
+            "endpoint_function": f"{self.id}",
             "hits": self.hits,
-            # "endpoint": self.endpoint
+            "endpoint": self.endpoint,
         }
 
 
