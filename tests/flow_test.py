@@ -1,4 +1,5 @@
 from analyx import flow, endpoints  # , metrics
+from .plugins.test_plugin import test_plugin
 # import json
 # import networkx
 import networkx as nx

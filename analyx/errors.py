@@ -14,3 +14,18 @@ class DuplicateError(Exception):
 
     def __str__(self):
         return f"{self.object_id} already present in {self.super_id}"
+
+class PluginAlreadyExists(Exception):
+    """Raised when a duplicate plugin is entered.
+
+    Please check if you're trying to add multiple instances
+    of the same plugin to your project.
+
+    """
+    def __init__(self, which=None):
+        self.plugin_id = which
+
+        super().__init__(self.plugin_id)
+
+    def __str__(self):
+        return f"{self.plugin_id} already imported in project"

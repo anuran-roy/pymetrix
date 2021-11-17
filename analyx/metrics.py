@@ -1,14 +1,27 @@
 from .endpoints import Endpoint
-# from .flow import Flow, FlowNode, FlowLayer, FlowNodeType, FlowLayerType
+from .flow import Flow, FlowNode, FlowLayer, FlowNodeType, FlowLayerType
+from .settings import plugins
 from typing import List
-
+from .plugins import PluginType
+from . import errors
 
 class MetricsBase:
-    pass
+    def __init__(self):
+        self._plugins: List = plugins
+        for plg in self._plugins:
+            globals()[lib] = __import__(plg)
 
+    @property
+    def plugins(self):
+        return self._plugins
+    
+    # def addPlugin(self, plg: PluginType):
+    #     if plg in self.plugins:
+    #         raise errors.PluginAlreadyExists(which=plg._metadata["plugin"])
 
 class Metrics(MetricsBase):
     def __init__(self, loc, **kwargs):
+        super().__init__()
         self.id = loc
         self.endpoints: List = []
         self.db = kwargs["db"] if "db" in kwargs.keys() else None
