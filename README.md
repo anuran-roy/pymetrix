@@ -24,10 +24,14 @@ from random import randint
 from metrics.metrics import Metrics
 
 metricman = Metrics(__file__)
+foo_obj = None
 
 def foo():
     print(f"Hello world {randint(0,1000000)}!")
-    metricman.add_to_analytics(foo, layerName="foo")
+    if foo_obj is None:
+        ep1 = endpoints.Endpoint(endpoint="/", id=foo)
+        foo_obj = flow.FlowNode(ep1, name="Object1")
+    metricman.add_to_analytics(foo_obj, layerName="foo")
 ```
 
 You can access the metrics of ``foo()`` from the ``metricman`` object with:
@@ -41,3 +45,5 @@ To get all the metrics of all the methods at once:
 ```
 metricman.display()
 ```
+
+For looking into what more Analyx can do, head to ``tests/flow_test.py``.

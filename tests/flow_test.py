@@ -1,7 +1,5 @@
-from analyx import flow, endpoints, metrics
+from analyx import flow, endpoints, metrics, visualize
 # from .plugins.test_plugin import test_plugin
-import networkx as nx
-import matplotlib.pyplot as plt
 
 
 a = metrics.Metrics(__file__)
@@ -30,19 +28,19 @@ graph = flow.Flow(name="TestGraph")
 # metricman = metrics.Metrics()
 
 l1 = flow.FlowLayer(label="Layer1")
-ep1 = endpoints.Endpoint(endpoint="/", id=foo1, hits=1)
+ep1 = endpoints.Endpoint(endpoint="/", id=foo1)
 obj1 = flow.FlowNode(ep1, name="Object1")
 l1.addNode(obj1)
 graph.addLayer(l1)
 
 l2 = flow.FlowLayer(label="Layer2")
-ep2 = endpoints.Endpoint(endpoint="/home", id=foo2, hits=1)
+ep2 = endpoints.Endpoint(endpoint="/home", id=foo2)
 obj2 = flow.FlowNode(ep2, name="Object2")
 l2.addNode(obj2)
 graph.addLayer(l2)
 
 l3 = flow.FlowLayer(label="Layer3")
-ep3 = endpoints.Endpoint(endpoint="/events", id=foo3, hits=1)
+ep3 = endpoints.Endpoint(endpoint="/events", id=foo3)
 obj3 = flow.FlowNode(ep3, name="Object3")
 l3.addNode(obj2)
 l3.addNode(obj3)
@@ -90,17 +88,12 @@ print(graph.exists(instance=obj2))
 print(graph.serialize)  # .prettyprint()
 print(graph.pretty_serialize)
 graph.prettyprint()
-print(graph.visualize)
+# print(graph.visualize)
 # print(json.dumps(graph.pretty_serialize, indent=4))
 
+a.display(id="Object1")
+a.display()
 
-#Block to visualize network
-G = nx.DiGraph()
-net = graph.visualize
-
-G.add_nodes_from([x[0] for x in net])
-for x in net:
-    G.add_edge(x[0], x[1])
-nx.draw(G,with_labels=True)
-plt.draw()
-plt.show()
+#Command to visualize network
+visualize.directed_graph(graph.visualize)
+visualize.directed_graph(graph.visualize)
