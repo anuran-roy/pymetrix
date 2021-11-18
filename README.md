@@ -27,7 +27,7 @@ metricman = Metrics(__file__)
 
 def foo():
     print(f"Hello world {randint(0,1000000)}!")
-    metricman.add_to_analytics([foo])
+    metricman.add_to_analytics(foo, layerName="foo")
 ```
 
 You can access the metrics of ``foo()`` from the ``metricman`` object with:

@@ -14,7 +14,7 @@ class MetricsBase:
         #     globals()[lib] = __import__(plg)
         print(f"\n\nPlugins list: {self._plugins}\n\n")
         
-        name = kwargs["name"] if "name" in kwargs.keys() else uuid4()
+        name = kwargs["name"] if "name" in kwargs.keys() else str(uuid4().hex)
         self._graph = Flow(name=name)
 
     @property
@@ -33,7 +33,12 @@ class Metrics(MetricsBase):
         self.id = loc
         self.endpoints: List = []
         self.db = kwargs["db"] if "db" in kwargs.keys() else None
+        self.last_inserted: FlowNodeType = None
     
+    @property
+    def graph(self):
+        return self._graph
+
     def add_to_analytics(self, node: FlowNodeType, layerName: str = str(uuid4().hex), **kwargs):
         layer_query = self._graph.search(label=layerName)
         layer_to_add_to = None
@@ -45,32 +50,47 @@ class Metrics(MetricsBase):
         
         if layer_to_add_to.search(instance=node) is None:
             layer_to_add_to.addNode(node)
-        else:
-            node._endpoint.hits += 1
+        
+        node._endpoint.hits += 1
 
         if layer_query == None:
             self._graph.addLayer(layer_to_add_to)
+        
+        if self.last_inserted is None:
+            self.last_inserted = node
+        else:
+            self.last_inserted._children.append(node)
+            self.last_inserted = node
 
 
     def display(self, **kwargs):
 
-        # print(f"\n\n{self.id}\n\n")
-        ep = None
+        print(f"\n\n{self.id}\n\n")
+        # ep = None
+        nodes_hit_list: List[Dict] = self._graph.gethits
+        # if 'id' in kwargs.keys():
+        #     for i in self.endpoints:
+        #         if i['id'] == kwargs['id']:
+        #             ep = [i]
+        #             break
+        # else:
+        #     ep = self.endpoints
 
+        print("\n\nId:\t\tHits\n")
+        
         if 'id' in kwargs.keys():
-            for i in self.endpoints:
-                if i['id'] == kwargs['id']:
-                    ep = [i]
-                    break
+            for i in nodes_hit_list:
+                if i["id"] == kwargs['id']: 
+                    print(f'{i["id"]}\t\t{i["hits"]}')
         else:
-            ep = self.endpoints
+            for i in nodes_hit_list:
+                # print(i)
+                print(f'{i["id"]}\t\t{i["hits"]}')
+        # for i in ep:
+        #     data = i['endpoint'].stats()
 
-        print("\n\nId:\tHits\n")
+        #     for j in data.keys():
+        #         print(f"{j}: {data[j]}", end="\t")
 
-        for i in ep:
-            data = i['endpoint'].stats()
-
-            for j in data.keys():
-                print(f"{j}: {data[j]}", end="\t")
-
-            print()
+        #     print()
+        

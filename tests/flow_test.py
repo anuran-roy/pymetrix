@@ -1,7 +1,5 @@
 from analyx import flow, endpoints, metrics
 # from .plugins.test_plugin import test_plugin
-# import json
-# import networkx
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -64,23 +62,29 @@ print(graph.search(label="Layer1"))
 print(l1.search(instance=obj3))
 
 
-obj2.comesBefore(obj3)
-obj2.comesBefore(obj1)
-obj2.comesBefore(obj4)
-obj3.comesBefore(obj5)
-obj3.comesBefore(obj4)
-obj1.comesBefore(obj4)
-obj4.comesAfter(obj5)
-obj5.comesAfter(obj1)
-obj5.comesAfter(obj2)
-obj5.comesBefore(obj2)
+# obj2.comesBefore(obj3)
+# obj2.comesBefore(obj1)
+# obj2.comesBefore(obj4)
+# obj3.comesBefore(obj5)
+# obj3.comesBefore(obj4)
+# obj1.comesBefore(obj4)
+# obj4.comesAfter(obj5)
+# obj5.comesAfter(obj1)
+# obj5.comesAfter(obj2)
+# obj5.comesBefore(obj2)
 
 graph.addLayer(l3)
 graph.addLayer(l4)
 graph.addLayer(l5)
 
-a.pack(obj1, layerName="Layer1")
-a.pack(obj1, layerName="Layer1")
+a.add_to_analytics(obj1, layerName="Layer1")
+a.add_to_analytics(obj2, layerName="Layer2")
+a.add_to_analytics(obj3, layerName="Layer3")
+a.add_to_analytics(obj1, layerName="Layer1")
+a.add_to_analytics(obj5, layerName="Layer5")
+
+graph = a.graph
+
 print(f"\n\n{obj1._endpoint.hits} hits\n\n")
 print(graph.exists(instance=obj2))
 print(graph.serialize)  # .prettyprint()

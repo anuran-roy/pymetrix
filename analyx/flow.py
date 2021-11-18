@@ -145,6 +145,13 @@ class FlowNode:
     def prettyprint(self):
         print("\n\n=================== Node Contents ===================\n\n")
         print(json.dumps(self.pretty_serialize, indent=4))
+    
+    @property
+    def gethits(self):
+        return {
+            "id": self._name,
+            "hits": self._endpoint.hits
+        }
 
 
 FlowNodeType = NewType('FlowNodeType', FlowNode)
@@ -175,6 +182,14 @@ class FlowLayer:
     @property
     def length(self):
         return len(self._nodes)
+
+    @property
+    def gethits(self) -> List:
+        nodes_hit_list: List = []
+        for i in self._nodes:
+            nodes_hit_list.append(i.gethits)
+
+        return nodes_hit_list
 
     @property
     def serialize(self) -> Dict:
@@ -259,6 +274,14 @@ class Flow:
     @graph.setter
     def graph(self, graphobj):
         self._graph = graphobj
+
+    @property
+    def gethits(self) -> List:
+        nodes_hit_list: List = []
+        for i in self._graph:
+            nodes_hit_list += i.gethits
+        
+        return nodes_hit_list
 
     # @property
     def addLayer(self, layer: FlowLayerType, **kwargs):
