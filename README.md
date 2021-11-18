@@ -31,6 +31,7 @@ def foo():
     if foo_obj is None:
         ep1 = endpoints.Endpoint(endpoint="/", id=foo)
         foo_obj = flow.FlowNode(ep1, name="Object1")
+
     metricman.add_to_analytics(foo_obj, layerName="foo")
 ```
 
