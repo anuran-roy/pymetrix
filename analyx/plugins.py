@@ -1,5 +1,5 @@
 from .flow import FlowNode, FlowNodeType, FlowLayer, FlowLayerType
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, NewType
 from datetime import datetime
 
 

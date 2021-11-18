@@ -1,6 +1,6 @@
 DEBUG = True
 VERBOSE = True
 
-plugins = [
+PLUGINS = [
     "test_plugin",
 ]

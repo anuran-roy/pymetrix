@@ -16,10 +16,10 @@ class FlowNode:
         self._marked: int = 0
 
     def __str__(self):
-        print(f"Node ID: {self._name}")
-        print(f"Corresponding Endpoint: {self._endpoint}")
-        print(f"Parent Nodes: {self._parents}")
-        print(f"Child Nodes: {self._children}")
+        # print(f"Node ID: {self._name}")
+        # print(f"Corresponding Endpoint: {self._endpoint}")
+        # print(f"Parent Nodes: {self._parents}")
+        # print(f"Child Nodes: {self._children}")
 
         return f'"node_id": {self._name}, "endpoint": {self._endpoint}, "parents": {self._parents}, "children": {self._children}'
             
