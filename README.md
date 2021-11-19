@@ -1,5 +1,7 @@
 # Analyx-Python
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a07b8b651c804e7a8a172e2d8cc94457)](https://app.codacy.com/gh/anuran-roy/analyx-python?utm_source=github.com&utm_medium=referral&utm_content=anuran-roy/analyx-python&utm_campaign=Badge_Grade_Settings)
+
 ## What is Analyx?
 
 **Analyx** is a plug-and-play analytics library written in Python.
