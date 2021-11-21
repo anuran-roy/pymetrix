@@ -5,10 +5,10 @@ from uuid import uuid4
 import json
 import pprint
 
+
 class FlowNode:
     def __init__(self, endpoint: EndpointType, **kwargs):
-        self._name = kwargs["name"] if "name" in kwargs.keys() \
-            else str(uuid4().hex)
+        self._name = kwargs["name"] if "name" in kwargs.keys() else str(uuid4().hex)
         self._endpoint: EndpointType = endpoint
         self._parents: List = []
         self._children: List = []
@@ -22,7 +22,6 @@ class FlowNode:
         # print(f"Child Nodes: {self._children}")
 
         return f'"node_id": {self._name}, "endpoint": {self._endpoint}, "parents": {self._parents}, "children": {self._children}'
-            
 
     # def __repr__(self):
     #     pass
@@ -57,7 +56,9 @@ class FlowNode:
             self._children.append(inserted_node)
             inserted_node._parents.append(self)
         else:
-            raise errors.DuplicateError(what=inserted_node._name, where=f"list of children of {self._name}")
+            raise errors.DuplicateError(
+                what=inserted_node._name, where=f"list of children of {self._name}"
+            )
 
     def comesAfter(self, inserted_node):
         print(f"comesAfter function invoked!Inserted node=\n")
@@ -67,15 +68,17 @@ class FlowNode:
             self._parents.append(inserted_node)
             inserted_node.children.append(self)
         else:
-            raise errors.DuplicateError(what=inserted_node._name, where=f"list of children of {self._name}")
+            raise errors.DuplicateError(
+                what=inserted_node._name, where=f"list of children of {self._name}"
+            )
 
     @property
     def serialize(self) -> Dict:
         return {
-            'node_id': self._name,
-            'parents': self._parents,
-            'children': self._children,
-            'endpoint': self._endpoint.serialize,
+            "node_id": self._name,
+            "parents": self._parents,
+            "children": self._children,
+            "endpoint": self._endpoint.serialize,
         }
 
     def search(self, **kwargs):
@@ -128,12 +131,12 @@ class FlowNode:
     @property
     def pretty_serialize(self):
         return {
-            'node_id': self._name,
-            'parents': [x._name for x in self._parents],
-            'children': [x._name for x in self._children],
-            'endpoint': self._endpoint.serialize,
+            "node_id": self._name,
+            "parents": [x._name for x in self._parents],
+            "children": [x._name for x in self._children],
+            "endpoint": self._endpoint.serialize,
         }
-    
+
     @property
     def visualize(self):
         nodes_pairs = []
@@ -145,24 +148,19 @@ class FlowNode:
     def prettyprint(self):
         print("\n\n=================== Node Contents ===================\n\n")
         print(json.dumps(self.pretty_serialize, indent=4))
-    
+
     @property
     def gethits(self):
-        return {
-            "id": self._name,
-            "hits": self._endpoint.hits
-        }
+        return {"id": self._name, "hits": self._endpoint.hits}
 
 
-FlowNodeType = NewType('FlowNodeType', FlowNode)
+FlowNodeType = NewType("FlowNodeType", FlowNode)
 
 
 class FlowLayer:
     def __init__(self, **kwargs):
-        self._name = kwargs["label"]\
-            if "label" in kwargs.keys() else str(uuid4().hex)
-        self._previous = kwargs["previous"] \
-            if "previous" in kwargs.keys() else None
+        self._name = kwargs["label"] if "label" in kwargs.keys() else str(uuid4().hex)
+        self._previous = kwargs["previous"] if "previous" in kwargs.keys() else None
         self._next = kwargs["next"] if "next" in kwargs.keys() else None
         self._nodes: List = []
 
@@ -198,11 +196,8 @@ class FlowLayer:
         for i in self._nodes:
             serialized_layer.append(i.serialize)
 
-        return {
-            'layer_id': self._name,
-            'nodes': serialized_layer
-            }
-    
+        return {"layer_id": self._name, "nodes": serialized_layer}
+
     @property
     def pretty_serialize(self) -> Dict:
         serialized_layer: List = []
@@ -210,17 +205,14 @@ class FlowLayer:
         for i in self._nodes:
             serialized_layer.append(i.pretty_serialize)
 
-        return {
-            'layer_id': self._name,
-            'nodes': serialized_layer
-            }
+        return {"layer_id": self._name, "nodes": serialized_layer}
 
     @property
     def visualize(self):
         nodes_pairs = []
         for i in self._nodes:
             nodes_pairs += i.visualize
-        
+
         return nodes_pairs
 
     def search(self, **kwargs):
@@ -258,13 +250,12 @@ class FlowLayer:
         print(json.dumps(self.pretty_serialize, indent=4))
 
 
-FlowLayerType = NewType('FlowLayerType', FlowLayer)
+FlowLayerType = NewType("FlowLayerType", FlowLayer)
 
 
 class Flow:
     def __init__(self, **kwargs):
-        self._name = kwargs["name"] \
-            if "name" in kwargs.keys() else str(uuid4().hex)
+        self._name = kwargs["name"] if "name" in kwargs.keys() else str(uuid4().hex)
         self._graph: List = []
 
     @property
@@ -280,15 +271,15 @@ class Flow:
         nodes_hit_list: List = []
         for i in self._graph:
             nodes_hit_list += i.gethits
-        
+
         return nodes_hit_list
 
     # @property
     def addLayer(self, layer: FlowLayerType, **kwargs):
         if layer not in self._graph:
             if "index" in kwargs.keys():
-                left = self._graph[:kwargs["index"]]
-                right = self._graph[kwargs["index"]:]
+                left = self._graph[: kwargs["index"]]
+                right = self._graph[kwargs["index"] :]
                 left.append(layer)
                 self._graph = left + right
             else:
@@ -301,27 +292,21 @@ class Flow:
         layers: List = []
         for i in self._graph:
             layers.append(i.serialize)
-        return {
-            "flow_id": self._name,
-            "layers": layers
-        }
+        return {"flow_id": self._name, "layers": layers}
 
     @property
     def pretty_serialize(self) -> Dict:
         layers: List = []
         for i in self._graph:
             layers.append(i.pretty_serialize)
-        return {
-            "flow_id": self._name,
-            "layers": layers
-        }
+        return {"flow_id": self._name, "layers": layers}
 
     @property
     def visualize(self):
         nodes_pairs = []
         for i in self._graph:
             nodes_pairs += i.visualize
-        
+
         return nodes_pairs
 
     # Search methods:
@@ -359,4 +344,4 @@ class Flow:
         print(json.dumps(self.pretty_serialize, indent=4))
 
 
-FlowType = NewType('FlowType', Flow)
+FlowType = NewType("FlowType", Flow)

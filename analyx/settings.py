@@ -2,5 +2,5 @@ DEBUG = True
 VERBOSE = True
 
 PLUGINS = [
-    "test_plugin",
+    "plugins.test_plugin.models",
 ]

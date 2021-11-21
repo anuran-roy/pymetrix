@@ -6,6 +6,7 @@ class DuplicateError(Exception):
     of the same object to compose the super object.
 
     """
+
     def __init__(self, what=None, where=None):
         self.object_id = what
         self.super_id = where
@@ -15,6 +16,7 @@ class DuplicateError(Exception):
     def __str__(self):
         return f"{self.object_id} already present in {self.super_id}"
 
+
 class PluginAlreadyExists(Exception):
     """Raised when a duplicate plugin is entered.
 
@@ -22,6 +24,7 @@ class PluginAlreadyExists(Exception):
     of the same plugin to your project.
 
     """
+
     def __init__(self, which=None):
         self.plugin_id = which
 

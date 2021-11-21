@@ -1,8 +1,10 @@
 from analyx import flow, endpoints, metrics, visualize
+
 # from .plugins.test_plugin import test_plugin
 
 
 a = metrics.Metrics(__file__)
+
 
 def foo1():
     print("Bar")
@@ -15,14 +17,18 @@ def foo2():
 def foo3():
     print("Bar3")
 
+
 def foo4():
     print("Bar4")
+
 
 def foo5():
     print("Bar5")
 
+
 def foo6():
     print("Bar6")
+
 
 graph = flow.Flow(name="TestGraph")
 # metricman = metrics.Metrics()
@@ -94,6 +100,6 @@ graph.prettyprint()
 a.display(id="Object1")
 a.display()
 
-#Command to visualize network
+# Command to visualize network
 visualize.directed_graph(graph.visualize)
 visualize.directed_graph(graph.visualize)

@@ -1,34 +1,21 @@
-from tortoise.models import Model
-from tortoise import fields
+from .settings import PLUGINS
+from tortoise import Tortoise, run_async
+
+DB_URL = "sqlite://db.sqlite3"
+
+for plg in PLUGINS:
+    globals()[lib] = __import__(plg)
 
 
-class Tournament(Model):
-    # Defining `id` field is optional, it will be defined automatically
-    # if you haven't done it yourself
-    id = fields.IntField(pk=True)
-    name = fields.CharField(max_length=255)
+async def init(**kwargs):
+    # Here we create a SQLite DB using file "db.sqlite3"
+    #  also specify the app name of "models"
+    #  which contain models from "app.models"
 
-    # Defining ``__str__`` is also optional, but gives you pretty
-    # represent of model in debugger and interpreter
-    def __str__(self):
-        return self.name
+    await Tortoise.init(db_url=DB_URL, modules={"models": PLUGINS})  # ['app.models']}
+    # Generate the schema
+    await Tortoise.generate_schemas()
 
 
-class Event(Model):
-    id = fields.IntField(pk=True)
-    name = fields.CharField(max_length=255)
-    # References to other models are defined in format
-    # "{app_name}.{model_name}" - where {app_name} is defined in tortoise config
-    tournament = fields.ForeignKeyField('models.Tournament', related_name='events')
-    participants = fields.ManyToManyField('models.Team', related_name='events', through='event_team')
-
-    def __str__(self):
-        return self.name
-
-
-class Team(Model):
-    id = fields.IntField(pk=True)
-    name = fields.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
+# run_async is a helper function to run simple async Tortoise scripts.
+run_async(init())

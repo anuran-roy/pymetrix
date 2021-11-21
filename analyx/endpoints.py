@@ -1,12 +1,11 @@
 from typing import NewType, Dict, List
 
 
-class Endpoint():
+class Endpoint:
     def __init__(self, **kwargs):
-        self.hits = kwargs['hits'] if "hits" in kwargs.keys() else 0
-        self.endpoint = kwargs['endpoint'] \
-            if "endpoint" in kwargs.keys() else None
-        self.id = kwargs['id'] if "id" in kwargs.keys() else None
+        self.hits = kwargs["hits"] if "hits" in kwargs.keys() else 0
+        self.endpoint = kwargs["endpoint"] if "endpoint" in kwargs.keys() else None
+        self.id = kwargs["id"] if "id" in kwargs.keys() else None
 
     @property
     def hitcount(self):
@@ -23,13 +22,16 @@ class Endpoint():
         self.endpoint = val
 
     def run(self, **kwargs):
-        _ = self.endpoint(**kwargs) if self.endpoint is not None \
+        _ = (
+            self.endpoint(**kwargs)
+            if self.endpoint is not None
             else print("Please append a function to run")
+        )
 
     def stats(self):
         return {
-            'id': self.id,
-            'hits': self.hits,
+            "id": self.id,
+            "hits": self.hits,
         }
 
     @property
@@ -41,4 +43,4 @@ class Endpoint():
         }
 
 
-EndpointType = NewType('EndpointType', Endpoint)
+EndpointType = NewType("EndpointType", Endpoint)
