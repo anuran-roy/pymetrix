@@ -1,6 +1,6 @@
 # Analyx-Python
 
-![Docs](https://img.shields.io/website?color=whi&down_color=red&down_message=Offline&label=Docs&logo=readthedocs&logoColor=white&style=for-the-badge&up_color=green&up_message=Online&url=https%3A%2F%2Fanuran-roy.github.io%2Ftags%2Fanalyx%2F)
+[![Docs](https://img.shields.io/website?color=whi&down_color=red&down_message=Offline&label=Docs&logo=readthedocs&logoColor=white&style=for-the-badge&up_color=green&up_message=Online&url=https%3A%2F%2Fanuran-roy.github.io%2Ftags%2Fanalyx%2F)](https://anuran-roy.github.io/tags/analyx/)
 ## What is Analyx?
 
 **Analyx** is a plug-and-play analytics library written in Python.
