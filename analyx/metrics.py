@@ -1,9 +1,17 @@
-from .endpoints import Endpoint
-from .flow import Flow, FlowNode, FlowLayer, FlowNodeType, FlowLayerType, Flow, FlowType
+# from .endpoints import Endpoint
+from .flow import (
+    Flow,
+    # FlowNode,
+    FlowLayer,
+    FlowNodeType,
+    FlowLayerType,
+    FlowType,
+)
 from .settings import PLUGINS
 from typing import List, Dict, Any
 from .plugins import PluginType
-from . import errors
+
+# from . import errors
 from uuid import uuid4
 
 # import .database
@@ -16,10 +24,10 @@ class MetricsBase:
         print(f"\n\nPlugins list: {self._plugins}\n\n")
 
         name = kwargs["name"] if "name" in kwargs.keys() else str(uuid4().hex)
-        self._graph = Flow(name=name)
+        self._graph: FlowType = Flow(name=name)
 
     @property
-    def plugins(self):
+    def plugins(self) -> List[PluginType]:
         return self._plugins
 
     # def addPlugin(self, plg: PluginType):
@@ -30,20 +38,20 @@ class MetricsBase:
 class Metrics(MetricsBase):
     def __init__(self, loc, **kwargs):
         super().__init__()
-        self.id = loc
+        self.id: str = loc
         self.endpoints: List = []
         self.db = kwargs["db"] if "db" in kwargs.keys() else None
         self.last_inserted: FlowNodeType = None
 
     @property
-    def graph(self):
+    def graph(self) -> FlowType:
         return self._graph
 
     def add_to_analytics(
         self, node: FlowNodeType, layerName: str = str(uuid4().hex), **kwargs
     ):
-        layer_query = self._graph.search(label=layerName)
-        layer_to_add_to = None
+        layer_query: Any = self._graph.search(label=layerName)
+        layer_to_add_to: FlowLayerType = None
 
         if layer_query is None:
             layer_to_add_to = FlowLayer(label=layerName)
@@ -55,7 +63,7 @@ class Metrics(MetricsBase):
 
         node._endpoint.hits += 1
 
-        if layer_query == None:
+        if layer_query is None:
             self._graph.addLayer(layer_to_add_to)
 
         if self.last_inserted is None:
@@ -64,7 +72,7 @@ class Metrics(MetricsBase):
             self.last_inserted._children.append(node)
             self.last_inserted = node
 
-    def display(self, **kwargs):
+    def display(self, **kwargs) -> None:
 
         print(f"\n\n{self.id}\n\n")
         # ep = None
