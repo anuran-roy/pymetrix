@@ -1,5 +1,5 @@
-from . import settings, errors
-from .endpoints import EndpointType
+from analyx import settings, errors
+from analyx.endpoints import EndpointType
 from typing import List, Dict, Any, NewType
 from uuid import uuid4
 import json
@@ -345,3 +345,7 @@ class Flow:
 
 
 FlowType = NewType("FlowType", Flow)
+
+
+if __name__ == "__main__":
+    print("Hi!")

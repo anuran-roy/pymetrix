@@ -1,5 +1,13 @@
 # from .endpoints import Endpoint
-from .flow import (
+import sys
+from pathlib import Path
+# PACK_BASE = str(Path(__file__).resolve().parent.parent)
+
+# if PACK_BASE in sys.path:
+#     print(sys.path)
+# else:
+#     sys.path.append(PACK_BASE)
+from analyx.flow import (
     Flow,
     # FlowNode,
     FlowLayer,
@@ -7,18 +15,18 @@ from .flow import (
     FlowLayerType,
     FlowType,
 )
-from .settings import PLUGINS
+from analyx.settings import PLUGINS, set_path
 from typing import List, Dict, Any
-from .plugins import PluginType
+from analyx.plugins import PluginType
 
 # from . import errors
 from uuid import uuid4
 
 # import .database
 
-
 class MetricsBase:
     def __init__(self, **kwargs):
+        set_path()
         self._plugins: List = list(PLUGINS)
 
         print(f"\n\nPlugins list: {self._plugins}\n\n")
@@ -102,3 +110,7 @@ class Metrics(MetricsBase):
         #         print(f"{j}: {data[j]}", end="\t")
 
         #     print()
+
+
+if __name__ == "__main__":
+    print("Hi!")
