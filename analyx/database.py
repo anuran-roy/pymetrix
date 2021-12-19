@@ -9,7 +9,7 @@ class StorageHandler:
     def __init__(self, plugins: List = PLUGINS, loc: str = DB_URL):
         self.plugins: List = plugins
         self.db: str = loc
-        self.plugin_models = [f"{x}.models" for x in self.plugins]
+        self.plugin_models: List[str] = [f"{x}.models" for x in self.plugins]
         for plg in self.plugins:
             globals()[f"{plg}.models"] = __import__(f"{plg}.models")
 

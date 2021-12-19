@@ -1,0 +1,10 @@
+__init__.py
+setup.py
+test_plugin/__init__.py
+test_plugin/models.py
+test_plugin/test_plugin.py
+test_plugin.egg-info/PKG-INFO
+test_plugin.egg-info/SOURCES.txt
+test_plugin.egg-info/dependency_links.txt
+test_plugin.egg-info/not-zip-safe
+test_plugin.egg-info/top_level.txt

@@ -18,15 +18,17 @@ from analyx.flow import (
 from analyx.settings import PLUGINS, set_path
 from typing import List, Dict, Any
 from analyx.plugins import PluginType
+from analyx.database import StorageHandler
 
 # from . import errors
 from uuid import uuid4
 
 # import .database
 
+
 class MetricsBase:
     def __init__(self, **kwargs):
-        set_path()
+        # set_path()
         self._plugins: List = list(PLUGINS)
 
         print(f"\n\nPlugins list: {self._plugins}\n\n")

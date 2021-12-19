@@ -3,12 +3,13 @@ from analyx.endpoints import EndpointType
 from typing import List, Dict, Any, NewType
 from uuid import uuid4
 import json
-import pprint
+# import pprint
 
 
 class FlowNode:
     def __init__(self, endpoint: EndpointType, **kwargs):
-        self._name = kwargs["name"] if "name" in kwargs.keys() else str(uuid4().hex)
+        self._name = kwargs["name"] if "name" in kwargs.keys() \
+            else str(uuid4().hex)
         self._endpoint: EndpointType = endpoint
         self._parents: List = []
         self._children: List = []
@@ -49,7 +50,7 @@ class FlowNode:
             self._children.append(children_ob)
 
     def comesBefore(self, inserted_node):
-        print(f"comesBefore function invoked!Inserted node=\n")
+        print("comesBefore function invoked!Inserted node=\n")
         print(inserted_node)
         if inserted_node not in self._children:
             print("Branch 1 invoked!")
@@ -57,11 +58,12 @@ class FlowNode:
             inserted_node._parents.append(self)
         else:
             raise errors.DuplicateError(
-                what=inserted_node._name, where=f"list of children of {self._name}"
+                what=inserted_node._name,
+                where=f"list of children of {self._name}"
             )
 
     def comesAfter(self, inserted_node):
-        print(f"comesAfter function invoked!Inserted node=\n")
+        print("comesAfter function invoked!Inserted node=\n")
         print(inserted_node)
         if inserted_node not in self._children:
             print("Branch 1 invoked!")
@@ -69,7 +71,8 @@ class FlowNode:
             inserted_node.children.append(self)
         else:
             raise errors.DuplicateError(
-                what=inserted_node._name, where=f"list of children of {self._name}"
+                what=inserted_node._name,
+                where=f"list of children of {self._name}"
             )
 
     @property
@@ -134,7 +137,7 @@ class FlowNode:
             "node_id": self._name,
             "parents": [x._name for x in self._parents],
             "children": [x._name for x in self._children],
-            "endpoint": self._endpoint.serialize,
+            "endpoint": self._endpoint.pretty_serialize,
         }
 
     @property
@@ -159,8 +162,10 @@ FlowNodeType = NewType("FlowNodeType", FlowNode)
 
 class FlowLayer:
     def __init__(self, **kwargs):
-        self._name = kwargs["label"] if "label" in kwargs.keys() else str(uuid4().hex)
-        self._previous = kwargs["previous"] if "previous" in kwargs.keys() else None
+        self._name = kwargs["label"] if "label" in kwargs.keys()\
+            else str(uuid4().hex)
+        self._previous = kwargs["previous"] if "previous" in kwargs.keys()\
+            else None
         self._next = kwargs["next"] if "next" in kwargs.keys() else None
         self._nodes: List = []
 
@@ -255,7 +260,8 @@ FlowLayerType = NewType("FlowLayerType", FlowLayer)
 
 class Flow:
     def __init__(self, **kwargs):
-        self._name = kwargs["name"] if "name" in kwargs.keys() else str(uuid4().hex)
+        self._name = kwargs["name"] if "name" in kwargs.keys()\
+            else str(uuid4().hex)
         self._graph: List = []
 
     @property
@@ -279,7 +285,7 @@ class Flow:
         if layer not in self._graph:
             if "index" in kwargs.keys():
                 left = self._graph[: kwargs["index"]]
-                right = self._graph[kwargs["index"] :]
+                right = self._graph[kwargs["index"]:]
                 left.append(layer)
                 self._graph = left + right
             else:
