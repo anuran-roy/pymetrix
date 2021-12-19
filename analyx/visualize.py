@@ -168,18 +168,23 @@ def undirected_graph(connections: List[Tuple]) -> None:
 #     return plot
 
 
-def directed_pyvis(connections: List[Tuple]) -> None:
+def directed_pyvis(connections: List[Tuple]) -> str:
     G = nx.DiGraph()
 
-    G.add_nodes_from([x[0] for x in connections])
+    # G.add_nodes_from([x[0] for x in connections])
+
+    for x in connections:
+        G.add_node(x[0], data=x[2], label=f'{x[0]}, hits={x[2]["endpoint"]["hits"]}', size=x[2]["endpoint"]["hits"]*15)
+        G.add_node(x[1], data=x[3], label=f'{x[1]}, hits={x[3]["endpoint"]["hits"]}', size=x[3]["endpoint"]["hits"]*15)
+
     for x in connections:
         G.add_edge(x[0], x[1])
 
     nt = Network(directed=True)
     nt.from_nx(G)
-    # nt.show_buttons()
-    # nt.toggle_hide_edges_on_drag(status=True)
-    # nt.toggle_hide_nodes_on_drag(status=True)
+    nt.show_buttons(['interaction', 'edges', 'nodes'])
+    nt.toggle_hide_edges_on_drag(status=True)
+    nt.toggle_hide_nodes_on_drag(status=True)
 
     # graph = nt.html  # .replace("body>", "div>").replace("html>", "div>")
     print("\nMaking Pyvis Network...\n")
@@ -187,4 +192,4 @@ def directed_pyvis(connections: List[Tuple]) -> None:
     print(str(nt.html))
     nt.save_graph("nx.html")
 
-    return str(open("nx.html", "r").read())
+    return open("nx.html", "r").read()

@@ -1,5 +1,6 @@
 __init__.py
 setup.py
+dist/test_plugin-0.0.1.tar.gz
 test_plugin/__init__.py
 test_plugin/models.py
 test_plugin/test_plugin.py

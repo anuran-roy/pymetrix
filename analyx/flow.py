@@ -143,8 +143,8 @@ class FlowNode:
     @property
     def visualize(self):
         nodes_pairs = []
-        nodes_pairs += [(self._name, x._name) for x in self._children]
-        nodes_pairs += [(x._name, self._name) for x in self._parents]
+        nodes_pairs += [(self._name, x._name, self.pretty_serialize, x.pretty_serialize) for x in self._children]
+        nodes_pairs += [(x._name, self._name, x.pretty_serialize, self.pretty_serialize) for x in self._parents]
 
         return nodes_pairs
 

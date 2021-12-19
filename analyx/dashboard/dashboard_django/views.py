@@ -103,7 +103,7 @@ def dashboard(request):
     # G = nx.random_geometric_graph(20, 0.25)
 
     graph = metricman.graph.visualize
-    print(f"\n{graph}\n")
+    # print(f"\n{graph}\n")
 
     plot = vs.directed_pyvis(graph)
 
