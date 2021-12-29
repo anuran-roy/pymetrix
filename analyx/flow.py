@@ -4,7 +4,7 @@ from typing import List, Dict, Any, NewType
 from uuid import uuid4
 import json
 # import pprint
-
+from datetime import datetime
 
 class FlowNode:
     def __init__(self, endpoint: EndpointType, **kwargs):
@@ -15,6 +15,7 @@ class FlowNode:
         self._children: List = []
         self.last_inserted: Any = None
         self._marked: int = 0
+        self.time: str = str(datetime.now())
 
     def __str__(self):
         # print(f"Node ID: {self._name}")
@@ -154,7 +155,11 @@ class FlowNode:
 
     @property
     def gethits(self):
-        return {"id": self._name, "hits": self._endpoint.hits}
+        return {
+            "id": self._name,
+            "hits": self._endpoint.hits,
+            "time": self.time
+            }
 
 
 FlowNodeType = NewType("FlowNodeType", FlowNode)

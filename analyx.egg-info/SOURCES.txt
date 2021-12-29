@@ -19,16 +19,6 @@ analyx.egg-info/SOURCES.txt
 analyx.egg-info/dependency_links.txt
 analyx.egg-info/not-zip-safe
 analyx.egg-info/top_level.txt
-analyx/dashboard/dashboard.py
-analyx/dashboard/dashboard_django/__init__.py
-analyx/dashboard/dashboard_django/admin.py
-analyx/dashboard/dashboard_django/apps.py
-analyx/dashboard/dashboard_django/models.py
-analyx/dashboard/dashboard_django/tests.py
-analyx/dashboard/dashboard_django/urls.py
-analyx/dashboard/dashboard_django/views.py
-analyx/dashboard/dashboard_django/migrations/__init__.py
-analyx/dashboard/dashboard_django/templates/dashboard_django/index.html
 dist/analyx-0.1.tar.gz
 plugins/__init__.py
 plugins/setup.py
@@ -43,3 +33,4 @@ plugins/test_plugin.egg-info/not-zip-safe
 plugins/test_plugin.egg-info/top_level.txt
 tests/__init__.py
 tests/flow_test.py
+tests/test_dummy.py

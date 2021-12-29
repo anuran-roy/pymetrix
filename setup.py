@@ -1,6 +1,5 @@
 from setuptools import setup
 
-
 setup(
     name="analyx",
     version="0.1",

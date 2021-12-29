@@ -112,7 +112,55 @@ class Metrics(MetricsBase):
         #         print(f"{j}: {data[j]}", end="\t")
 
         #     print()
+    
+    def time_series(self, **kwargs) -> Dict:
+        dct: Dict = {}
 
+        dct["id"] = self.id
+        # print(f"\n\n{self.id}\n\n")
+        # ep = None
+        nodes_hit_list: List[Dict] = self._graph.gethits
+        dct["nodes"] = nodes_hit_list
+        # if 'id' in kwargs.keys():
+        #     for i in self.endpoints:
+        #         if i['id'] == kwargs['id']:
+        #             ep = [i]
+        #             break
+        # else:
+        #     ep = self.endpoints
+
+        # print("\n\nId:\t\tHits\n")
+
+        if "id" in kwargs.keys():
+            for i in dct["nodes"]:
+                if i["id"] == kwargs["id"]:
+                    return {
+                        "id": kwargs["id"],
+                        i["id"]: i["hits"]
+                    }
+        else:
+            return dct
+        # for i in ep:
+        #     data = i['endpoint'].stats()
+
+        #     for j in data.keys():
+        #         print(f"{j}: {data[j]}", end="\t")
+
+        #     print()
+
+    def stats(self) -> Dict:
+        agg: Dict = {}
+        nodes_hit_list: List[Dict] = self._graph.gethits
+
+        endpoints: List[str] = [x["id"] for x in nodes_hit_list]
+        
+        for i in endpoints:
+            agg[i] = 0
+        
+        for i in nodes_hit_list:
+            agg[i["id"]] += 1
+        
+        return agg
 
 if __name__ == "__main__":
     print("Hi!")
