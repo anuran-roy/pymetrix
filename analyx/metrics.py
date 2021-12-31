@@ -15,10 +15,15 @@ from analyx.flow import (
     FlowLayerType,
     FlowType,
 )
+
+from time import sleep
 from analyx.settings import PLUGINS, set_path
 from typing import List, Dict, Any
 from analyx.plugins import PluginType
 from analyx.database import StorageHandler
+
+from functools import lru_cache
+from datetime import datetime, timedelta
 
 # from . import errors
 from uuid import uuid4
@@ -148,7 +153,7 @@ class Metrics(MetricsBase):
 
         #     print()
 
-    def stats(self) -> Dict:
+    def aggregate(self) -> Dict:
         agg: Dict = {}
         nodes_hit_list: List[Dict] = self._graph.gethits
 
@@ -161,6 +166,31 @@ class Metrics(MetricsBase):
             agg[i["id"]] += 1
         
         return agg
+    
+    def pipeline(self, data: str="time_series", mode: str="live", **kwargs) -> List:
+        if mode == 'live':
+            interval: float = 1.0 if "interval" not in kwargs.keys() else kwargs["interval"]
+            if data == 'time_series':
+                if "duration" in kwargs.keys():
+                    dest = datetime.now() + timedelta(seconds=kwargs["duration"])
+                    while datetime.now() <= dest:
+                        yield self.time_series()
+                        sleep(interval)
+                else:
+                    while True:
+                        yield self.time_series()
+                        sleep(interval)
+
+            elif data == 'aggregate':
+                if "duration" in kwargs.keys():
+                    dest = datetime.now() + timedelta(seconds=kwargs["duration"])
+                    while datetime.now() <= dest:
+                        yield self.aggregate()
+                        sleep(interval)
+                else:
+                    while True:
+                        yield self.aggregate()
+                        sleep(interval)
 
 if __name__ == "__main__":
     print("Hi!")

@@ -51,10 +51,12 @@ class FlowNode:
             self._children.append(children_ob)
 
     def comesBefore(self, inserted_node):
-        print("comesBefore function invoked!Inserted node=\n")
-        print(inserted_node)
+        if settings.VERBOSE:
+            print("comesBefore function invoked!Inserted node=\n")
+            print(inserted_node)
         if inserted_node not in self._children:
-            print("Branch 1 invoked!")
+            if settings.VERBOSE:
+                print("Branch 1 invoked!")
             self._children.append(inserted_node)
             inserted_node._parents.append(self)
         else:
@@ -64,10 +66,12 @@ class FlowNode:
             )
 
     def comesAfter(self, inserted_node):
-        print("comesAfter function invoked!Inserted node=\n")
-        print(inserted_node)
+        if settings.VERBOSE:
+            print("comesAfter function invoked!Inserted node=\n")
+            print(inserted_node)
         if inserted_node not in self._children:
-            print("Branch 1 invoked!")
+            if settings.VERBOSE:
+                print("Branch 1 invoked!")
             self._parents.append(inserted_node)
             inserted_node.children.append(self)
         else:
@@ -86,7 +90,8 @@ class FlowNode:
         }
 
     def search(self, **kwargs):
-        print(f"\t\t-> Searching at Node level... Node {self._name}")
+        if settings.VERBOSE:
+            print(f"\t\t-> Searching at Node level... Node {self._name}")
         k = set(kwargs.keys())
         if "endpoint_id" in k:
             if self.endpoint.id == kwargs["endpoint_id"]:
@@ -226,7 +231,8 @@ class FlowLayer:
         return nodes_pairs
 
     def search(self, **kwargs):
-        print(f"\t->Searching at FlowLayer level: Layer {self._name}...")
+        if settings.VERBOSE:
+            print(f"\t->Searching at FlowLayer level: Layer {self._name}...")
         k = set(kwargs.keys())
 
         if "label" in k:
@@ -242,7 +248,8 @@ class FlowLayer:
         results = []
         ct = 1
         for i in self._nodes:
-            print(f"\t\t->Searching node {ct}")
+            if settings.VERBOSE:
+                print(f"\t\t->Searching node {ct}")
             ob = i.search(**kwargs)
 
             if ob is not None:

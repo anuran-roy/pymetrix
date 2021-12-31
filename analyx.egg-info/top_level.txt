@@ -1,3 +1,1 @@
 analyx
-plugins
-tests

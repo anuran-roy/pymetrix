@@ -33,4 +33,3 @@ plugins/test_plugin.egg-info/not-zip-safe
 plugins/test_plugin.egg-info/top_level.txt
 tests/__init__.py
 tests/flow_test.py
-tests/test_dummy.py
