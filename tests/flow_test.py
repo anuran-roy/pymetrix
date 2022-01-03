@@ -1,4 +1,4 @@
-from analyx import flow, endpoints, metrics, visualize
+from pymetrix import flow, endpoints, metrics, visualize
 
 # from .plugins.test_plugin import test_plugin
 
