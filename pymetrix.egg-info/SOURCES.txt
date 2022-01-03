@@ -2,11 +2,6 @@ README.md
 __init__.py
 requirements.txt
 setup.py
-analyx.egg-info/PKG-INFO
-analyx.egg-info/SOURCES.txt
-analyx.egg-info/dependency_links.txt
-analyx.egg-info/not-zip-safe
-analyx.egg-info/top_level.txt
 dist/analyx-0.1.tar.gz
 plugins/__init__.py
 plugins/setup.py
