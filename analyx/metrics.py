@@ -136,15 +136,15 @@ class Metrics(MetricsBase):
 
         # print("\n\nId:\t\tHits\n")
 
-        if "id" in kwargs.keys():
-            for i in dct["nodes"]:
-                if i["id"] == kwargs["id"]:
-                    return {
-                        "id": kwargs["id"],
-                        i["id"]: i["hits"]
-                    }
-        else:
-            return dct
+        # if "id" in kwargs.keys():
+        #     for i in dct["nodes"]:
+        #         if i["id"] == kwargs["id"]:
+        #             return {
+        #                 "id": kwargs["id"],
+        #                 i["id"]: i["hits"]
+        #             }
+        # else:
+        return dct
         # for i in ep:
         #     data = i['endpoint'].stats()
 
@@ -168,29 +168,67 @@ class Metrics(MetricsBase):
         return agg
     
     def pipeline(self, data: str="time_series", mode: str="live", **kwargs) -> List:
+        last_var = {
+            "id": None,
+            "hits": None,
+            "time": None
+        }
+
         if mode == 'live':
             interval: float = 1.0 if "interval" not in kwargs.keys() else kwargs["interval"]
             if data == 'time_series':
                 if "duration" in kwargs.keys():
                     dest = datetime.now() + timedelta(seconds=kwargs["duration"])
                     while datetime.now() <= dest:
-                        yield self.time_series()
-                        sleep(interval)
+                        ts = self.time_series()["nodes"]
+                        if len(ts) > 0:
+                            # print(f"\nTime Series Data: {ts[-1]}\n")
+                            if last_var["time"] != ts[-1]["time"]:
+                                last_var = dict(ts[-1])
+                                yield ts[-1]
+                                # sleep(interval)
+                        else:
+                            yield {
+                                "id": "id",
+                                "hits": "hits",
+                                "time": "time",
+                            }
+                            # sleep(interval)
+
                 else:
                     while True:
-                        yield self.time_series()
-                        sleep(interval)
+                        ts = self.time_series()["nodes"]
+                        if len(ts) > 0:
+                            # print(f"\nTime Series Data: {ts[-1]}\n")
+                            if last_var["time"] != ts[-1]["time"]:
+                                last_var = dict(ts[-1])
+                                yield ts[-1]
+                                # sleep(interval)
+                        else:
+                            yield {
+                                "id": "id",
+                                "hits": "hits",
+                                "time": "time",
+                            }
+                            # sleep(interval)
 
             elif data == 'aggregate':
                 if "duration" in kwargs.keys():
                     dest = datetime.now() + timedelta(seconds=kwargs["duration"])
                     while datetime.now() <= dest:
                         yield self.aggregate()
-                        sleep(interval)
+                        # sleep(interval)
                 else:
                     while True:
                         yield self.aggregate()
-                        sleep(interval)
+                        # sleep(interval)
+
+        elif mode == "snapshot":
+            if data == "time_series":
+                return self.time_series()
+            elif data == "aggregate":
+                return self.aggregate()
+
 
 if __name__ == "__main__":
     print("Hi!")
