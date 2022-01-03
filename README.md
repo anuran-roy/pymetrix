@@ -239,6 +239,8 @@ Just like the case with Django, you can initialize a Pymetrix object in the main
 
 ### 3. Using with Starlite
 
+Starlite is the new challenger in town for Web API frameworks. According to the maker of Starlite, Na'aman Hirschfield (who is also an online friend of mine 😎):
 
+> The intention behind Starlite was to create a higher level opinionated API framework. I placed opinionated in bold because in my view, being opinionated regarding > how certain things should be done and shouldn’t be done, and establishing best practices, is one of the most important things a framework can do.
 
 <!-- For looking into what more Pymetrix can do, head to ``tests/flow_test.py``. -->
