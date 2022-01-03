@@ -1,4 +1,4 @@
-from analyx.settings import PLUGINS
+from pymetrix.settings import PLUGINS
 from tortoise import Tortoise, run_async
 from typing import List
 
