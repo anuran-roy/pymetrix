@@ -232,7 +232,10 @@ Now we start the ``uvicorn`` server using:
 ```sh
 uvicorn main:app --port 8000 --reload
 ```
+
 Now going to ``localhost:8000/statistics`` will give you the aggregate hits on each endpoint.
+
+Just like the case with Django, you can initialize a Pymetrix object in the main.py file and then import into other scripts from there, if you want a centralized view. But you're also free to take a modular approach with your project by initializing the Pymetrix objects within each module - your skills are your limit.
 
 ### 3. Using with Starlite
 
