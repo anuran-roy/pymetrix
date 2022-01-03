@@ -1,6 +1,6 @@
 # Pymetrix-Python
 
-[![Docs](https://img.shields.io/website?color=whi&down_color=red&down_message=Offline&label=Docs&logo=readthedocs&logoColor=white&style=for-the-badge&up_color=green&up_message=Online&url=https%3A%2F%2Fanuran-roy.github.io%2Ftags%2Fanalyx%2F)](https://anuran-roy.github.io/tags/pymetrix/)
+[![Docs](https://img.shields.io/website?color=whi&down_color=red&down_message=Offline&label=Docs&logo=readthedocs&logoColor=white&style=for-the-badge&up_color=green&up_message=Online&url=https%3A%2F%2Fanuran-roy.github.io%2Ftags%2Fpymetrix%2F)](https://anuran-roy.github.io/tags/pymetrix/)
 ## What is Pymetrix?
 
 **Pymetrix** (previously known as **Analyx**) is a plug-and-play analytics library written in Python.
@@ -239,8 +239,15 @@ Just like the case with Django, you can initialize a Pymetrix object in the main
 
 ### 3. Using with Starlite
 
-Starlite is the new challenger in town for Web API frameworks. According to the maker of Starlite, Na'aman Hirschfield (who is also an online friend of mine 😎):
+Starlite is the new challenger in town for Web API frameworks. It's similar to FastAPI in the aspect that it's based on Starlette and Pydantic. But it has a fundamental philosophical difference - Starlite is opinionated, while FastAPI is not. 
+
+According to the maker of Starlite, Na'aman Hirschfeld (who is also an online friend of mine 😎):
 
 > The intention behind Starlite was to create a higher level opinionated API framework. I placed opinionated in bold because in my view, being opinionated regarding > how certain things should be done and shouldn’t be done, and establishing best practices, is one of the most important things a framework can do.
 
+So let's see how Pymetrix works with Starlite:
+
+```python
+
+```
 <!-- For looking into what more Pymetrix can do, head to ``tests/flow_test.py``. -->
