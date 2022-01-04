@@ -317,8 +317,6 @@ async def about() -> Dict:
 
 @get(path="/statistics")
 async def statistics() -> Dict:
-    node2: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact")
-    metricman.add_to_analytics(node2)
     return {
         "response": 200,
         "message": metricman.aggregate()
