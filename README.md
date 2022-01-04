@@ -54,7 +54,7 @@ Pymetrix can be used in conjunction with other frameworks as well, including web
 
 ### 1. Using with Django
 
-Django is the most popular framework of choice for a vast majority of Python web developers, often dubbed as "the framework for perfectionists with deadlines". It is a clean, concise and opinionated framework that enforces code reusability, modularity and code readability. It has an intuitive directory structure, and a large ecosystem of plugins tailor-made for it. Besides those, the usual Python libraries that can be used in tandem with it for designing business logic as well.
+**[Django](https://www.djangoproject.com/)** is the most popular framework of choice for a vast majority of Python web developers, often dubbed as "the framework for perfectionists with deadlines". It is a clean, concise and opinionated framework that enforces code reusability, modularity and code readability. It has an intuitive directory structure, and a large ecosystem of plugins tailor-made for it. Besides those, the usual Python libraries that can be used in tandem with it for designing business logic as well.
 
 Being a library, you can import Pymetrix on any file that will be executed by the server on calling the endpoints. This is usually the ``views.py`` file in a standard Django project.
 
@@ -151,11 +151,11 @@ def aThirdMethod(request):
 
 Although I haven't tested it yet, owing to the nature of the ``metricman`` object, I think it can be used in the top level ``urls.py`` for being used over the entire project - one that has multiple Django Apps into it.
 
-Also, do check out [Pymetrix Django Dashboard](https://github.com/anuran-roy/pymetrix-dashboard-django.git)
+Also, do check out **[Pymetrix Django Dashboard](https://github.com/anuran-roy/pymetrix-dashboard-django.git)**
 
 ### 2. Using with FastAPI
 
-FastAPI is a micro web framework built on top of Pydantic and Starlette. It claims to be the fastest Pythonic web framework out there for building APIs, and adheres to the OpenAPI standards. It provides two UIs for testing the APIs made through it - Redoc and SwaggerUI. It also provides a lot of functionalities out of the box, such as asynchronous calls, which speeds up API calls, sometimes tremendously. It can be used both with ASGI and WSGI.
+**[FastAPI](https://fastapi.tiangolo.com/)** is a micro web framework built on top of Pydantic and Starlette. It claims to be the fastest Pythonic web framework out there for building APIs, and adheres to the OpenAPI standards. It provides two UIs for testing the APIs made through it - Redoc and SwaggerUI. It also provides a lot of functionalities out of the box, such as asynchronous calls, which speeds up API calls, sometimes tremendously. It can be used both with ASGI and WSGI.
 
 Integrating Pymetrix with FastAPI is as easy as it is in Django, if not easier.
 
@@ -239,7 +239,7 @@ Just like the case with Django, you can initialize a Pymetrix object in the main
 
 ### 3. Using with Starlite
 
-Starlite is the new challenger in town for Web API frameworks. It's similar to FastAPI in the aspect that it's based on Starlette and Pydantic. But it has a fundamental philosophical difference - Starlite is opinionated, while FastAPI is not. 
+**[Starlite](https://goldziher.github.io/starlite/)** is the new challenger in town for Web API frameworks. It's similar to FastAPI in the aspect that it's based on Starlette and Pydantic. But it has a fundamental philosophical difference - Starlite is opinionated, while FastAPI is not. 
 
 According to the maker of Starlite, Na'aman Hirschfeld (who is also an online friend of mine 😎):
 
@@ -256,7 +256,7 @@ metricman = metrics.Metrics(loc="Test")
 
 
 @get(path="/home")
-def home() -> Dict:
+async def home() -> Dict:
     node1: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/home", id=home), name="Home")
     metricman.add_to_analytics(node1)
     return {
@@ -266,7 +266,7 @@ def home() -> Dict:
 
 
 @get(path="/contact")
-def contact() -> Dict:
+async def contact() -> Dict:
     node2: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact")
     metricman.add_to_analytics(node2)
     return {
@@ -276,7 +276,7 @@ def contact() -> Dict:
 
 
 @get(path="/collaborations")
-def collaborations() -> Dict:
+async def collaborations() -> Dict:
     node3: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/collaborations", id=collaborations), name="Collaborations")
     metricman.add_to_analytics(node3)
     return {
@@ -286,7 +286,7 @@ def collaborations() -> Dict:
 
 
 @get(path="/events")
-def events() -> Dict:
+async def events() -> Dict:
     node4: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/events", id=events), name="Events")
     metricman.add_to_analytics(node4)
     return {
@@ -296,7 +296,7 @@ def events() -> Dict:
 
 
 @get(path="/blog")
-def blog() -> Dict:
+async def blog() -> Dict:
     node5: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/blog", id=blog), name="Blog")
     metricman.add_to_analytics(node5)
     return {
@@ -306,7 +306,7 @@ def blog() -> Dict:
 
 
 @get(path="/about")
-def about() -> Dict:
+async def about() -> Dict:
     node6: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/about", id=about), name="About")
     metricman.add_to_analytics(node6)
     return {
@@ -316,7 +316,7 @@ def about() -> Dict:
 
 
 @get(path="/statistics")
-def statistics() -> Dict:
+async def statistics() -> Dict:
     node2: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact")
     metricman.add_to_analytics(node2)
     return {
