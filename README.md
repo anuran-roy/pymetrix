@@ -243,11 +243,88 @@ Starlite is the new challenger in town for Web API frameworks. It's similar to F
 
 According to the maker of Starlite, Na'aman Hirschfeld (who is also an online friend of mine 😎):
 
-> The intention behind Starlite was to create a higher level opinionated API framework. I placed opinionated in bold because in my view, being opinionated regarding > how certain things should be done and shouldn’t be done, and establishing best practices, is one of the most important things a framework can do.
+> The intention behind Starlite was to create a higher level opinionated API framework. I placed opinionated in bold because in my view, being opinionated regarding how certain things should be done and shouldn’t be done, and establishing best practices, is one of the most important things a framework can do.
 
 So let's see how Pymetrix works with Starlite:
 
 ```python
+from starlite import Starlite, get
+from pymetrix import metrics, endpoints, flow
+from typing import Dict
 
+metricman = metrics.Metrics(loc="Test")
+
+
+@get(path="/home")
+def home() -> Dict:
+    node1: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/home", id=home), name="Home")
+    metricman.add_to_analytics(node1)
+    return {
+        "response": 200,
+        "message": "Home Page Works"
+    }
+
+
+@get(path="/contact")
+def contact() -> Dict:
+    node2: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact")
+    metricman.add_to_analytics(node2)
+    return {
+        "response": 200,
+        "message": "Contact Page Works"
+    }
+
+
+@get(path="/collaborations")
+def collaborations() -> Dict:
+    node3: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/collaborations", id=collaborations), name="Collaborations")
+    metricman.add_to_analytics(node3)
+    return {
+        "response": 200,
+        "message": "Collaborations Page Works"
+    }
+
+
+@get(path="/events")
+def events() -> Dict:
+    node4: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/events", id=events), name="Events")
+    metricman.add_to_analytics(node4)
+    return {
+        "response": 200,
+        "message": "Events Page Works"
+    }
+
+
+@get(path="/blog")
+def blog() -> Dict:
+    node5: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/blog", id=blog), name="Blog")
+    metricman.add_to_analytics(node5)
+    return {
+        "response": 200,
+        "message": "Blog Page Works"
+    }
+
+
+@get(path="/about")
+def about() -> Dict:
+    node6: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/about", id=about), name="About")
+    metricman.add_to_analytics(node6)
+    return {
+        "response": 200,
+        "message": "About Page Works"
+    }
+
+
+@get(path="/statistics")
+def statistics() -> Dict:
+    node2: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact")
+    metricman.add_to_analytics(node2)
+    return {
+        "response": 200,
+        "message": metricman.aggregate()
+    }
+
+
+app = Starlite(route_handlers=[home, contact, collaborations, events, blog, about, statistics])
 ```
 <!-- For looking into what more Pymetrix can do, head to ``tests/flow_test.py``. -->

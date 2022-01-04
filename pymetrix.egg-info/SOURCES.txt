@@ -3,6 +3,7 @@ __init__.py
 requirements.txt
 setup.py
 dist/analyx-0.1.tar.gz
+dist/pymetrix-0.1.tar.gz
 plugins/__init__.py
 plugins/setup.py
 plugins/dist/test_plugin-0.0.1.tar.gz
@@ -16,6 +17,7 @@ plugins/test_plugin.egg-info/not-zip-safe
 plugins/test_plugin.egg-info/top_level.txt
 pymetrix/__init__.py
 pymetrix/database.py
+pymetrix/db.sqlite3
 pymetrix/endpoints.py
 pymetrix/errors.py
 pymetrix/flow.py
