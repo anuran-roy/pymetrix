@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://anuran-roy.github.io/pymetrix/api/overview/">
+        <link rel="canonical" href="https://anuran-roy.github.io/pymetrix/api/tips/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
     
       
-        <title>Overview - Pymetrix</title>
+        <title>Tips - Pymetrix</title>
       
     
     
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              Tips
             
           </span>
         </div>
@@ -276,6 +276,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -286,12 +300,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Overview
+          Tips
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Overview
+        Tips
       </a>
       
         
@@ -315,56 +329,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-types" class="md-nav__link">
-    Data Types
+  <a href="#1-time-series-aggregate" class="md-nav__link">
+    1. Time Series &gt; Aggregate
   </a>
-  
-    <nav class="md-nav" aria-label="Data Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-time-series" class="md-nav__link">
-    1. Time Series
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-aggregate" class="md-nav__link">
-    2. Aggregate
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#modes" class="md-nav__link">
-    Modes
-  </a>
-  
-    <nav class="md-nav" aria-label="Modes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-live" class="md-nav__link">
-    1. Live
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-snapshot" class="md-nav__link">
-    2. Snapshot
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -372,20 +339,6 @@
   
 </nav>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tips/" class="md-nav__link">
-        Tips
-      </a>
     </li>
   
 
@@ -429,56 +382,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-types" class="md-nav__link">
-    Data Types
+  <a href="#1-time-series-aggregate" class="md-nav__link">
+    1. Time Series &gt; Aggregate
   </a>
-  
-    <nav class="md-nav" aria-label="Data Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-time-series" class="md-nav__link">
-    1. Time Series
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-aggregate" class="md-nav__link">
-    2. Aggregate
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#modes" class="md-nav__link">
-    Modes
-  </a>
-  
-    <nav class="md-nav" aria-label="Modes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-live" class="md-nav__link">
-    1. Live
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-snapshot" class="md-nav__link">
-    2. Snapshot
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -494,69 +400,17 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/anuran-roy/pymetrix-python/edit/master/docs/api/overview.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/anuran-roy/pymetrix-python/edit/master/docs/api/tips.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-  <h1>Overview</h1>
+  <h1>Tips</h1>
 
 <h2 id="introduction">Introduction</h2>
-<p>Pymetrix can export two types of data:</p>
-<ol>
-<li>Time Series</li>
-<li>Aggregate</li>
-</ol>
-<p>in two types of modes:</p>
-<ol>
-<li>Snapshot</li>
-<li>Live Stream</li>
-</ol>
-<h2 id="data-types">Data Types</h2>
-<h3 id="1-time-series">1. Time Series</h3>
-<p>Pymetrix can export time series data with the following format:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="__codelineno-0-1"></a><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="__codelineno-0-2"></a><span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">TARGET_NAME</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">ACCESS_TIME</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="__codelineno-0-4"></a><span class="p">}</span><span class="w"></span>
-</code></pre></div>
-<p>which can be obtained by:</p>
-<ol>
-<li>iterating over the <code>pipeline(data="time_series", mode="live")</code> generator method, or</li>
-<li>calling the <code>pipeline(data="time_series", mode="snapshot")</code> method and accessing the values of the <code>node</code> key </li>
-</ol>
-<p>in the <code>metricman</code> object.</p>
-<h3 id="2-aggregate">2. Aggregate</h3>
-<p>Pymetrix can also export the aggregated hits data in the following format:</p>
-<!-- ```json
-{
-    "id": ,
-    "nodes": [
-        {
-
-        }
-    ]
-}
-``` -->
-
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="__codelineno-1-1"></a><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="__codelineno-1-2"></a><span class="w">    </span><span class="nt">&quot;Target1&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">EP</span><span class="mi">1</span><span class="err">_HITS</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;Target2&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">EP</span><span class="mi">2</span><span class="err">_HITS</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;Target3&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">EP</span><span class="mi">3</span><span class="err">_HITS</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="__codelineno-1-5"></a><span class="w">    </span><span class="err">...</span><span class="w"></span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="__codelineno-1-6"></a><span class="p">}</span><span class="w"></span>
-</code></pre></div>
-<p>which can be obtained by:</p>
-<ol>
-<li>iterating over the <code>pipeline(data="aggregate", mode="live")</code> generator method, or</li>
-<li>calling the <code>pipeline(data="aggregate", mode="snapshot")</code> method </li>
-</ol>
-<p>in the <code>metricman</code> object.</p>
-<h2 id="modes">Modes</h2>
-<h3 id="1-live">1. Live</h3>
-<p>This mode gives the live data of the targets. The live data can be either time series or aggregate.</p>
-<h3 id="2-snapshot">2. Snapshot</h3>
-<p>This mode gives the data of the targets UPTO the time when the method is called. As with the live mode, the data can be either time series or aggregate.</p>
+<p>Being the nascent library that it is at the moment, Pymetrix is by no means fully optimized. I am working actively on it, and any help is ABSOLUTELY WELCOME! 😁</p>
+<p>That being said, I'd like to give you some tips for getting the best results out of Pymetrix.</p>
+<h2 id="1-time-series-aggregate">1. Time Series &gt; Aggregate</h2>
 
               
             </article>
@@ -575,7 +429,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+        <a href="../overview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -584,26 +438,11 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Home
+              Overview
             </div>
           </div>
         </a>
       
-      
-        
-        <a href="../tips/" class="md-footer__link md-footer__link--next" aria-label="Next: Tips" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Tips
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
       
     </nav>
   
