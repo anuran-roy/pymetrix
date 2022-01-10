@@ -167,7 +167,12 @@ class FlowNode:
 
     @property
     def gethits(self):
-        return {"id": self._name, "hits": self._endpoint.hits, "time": self.time, "callers": self.called_from}
+        return {
+            "id": self._name,
+            "hits": self._endpoint.hits,
+            "time": self.time,
+            "callers": self.called_from,
+        }
 
 
 FlowNodeType = NewType("FlowNodeType", FlowNode)
@@ -184,12 +189,7 @@ class FlowLayer:
         parent = None if "parent" in kwargs.keys() else None
         if node._name not in [x._name for x in self._nodes]:
             node._endpoint.hits += 1
-            node.called_from += [
-                        {
-                            "caller": parent,
-                            "time": str(datetime.now())
-                        }
-                    ]
+            node.called_from += [{"caller": parent, "time": str(datetime.now())}]
 
             if index != -1:
                 self._nodes.add(index, node)
@@ -203,14 +203,8 @@ class FlowLayer:
                         if y._name == parent:
                             x._parents += [y]
 
-                    x.called_from += [
-                        {
-                            "caller": parent,
-                            "time": str(datetime.now())
-                        }
-                    ]
+                    x.called_from += [{"caller": parent, "time": str(datetime.now())}]
                     x._endpoint.hits += 1
-
 
     @property
     def nodes(self):

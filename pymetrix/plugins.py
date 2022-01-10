@@ -3,7 +3,9 @@ from typing import List, Dict, Any, Tuple, NewType
 from datetime import datetime
 
 from .settings import set_path
+
 set_path()
+
 
 class Plugin:
     def __init__(self):
@@ -42,9 +44,11 @@ class Plugin:
     def results(self):
         return {}
 
+
 PluginType = NewType("PluginType", Plugin)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from .settings import set_path
+
     set_path()
     PluginType = NewType("PluginType", Plugin)

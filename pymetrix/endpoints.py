@@ -5,8 +5,7 @@ from datetime import datetime
 class Endpoint:
     def __init__(self, **kwargs):
         self.hits = kwargs["hits"] if "hits" in kwargs.keys() else 0
-        self.endpoint = kwargs["endpoint"] if "endpoint" in kwargs.keys() \
-            else None
+        self.endpoint = kwargs["endpoint"] if "endpoint" in kwargs.keys() else None
         self.id = kwargs["id"] if "id" in kwargs.keys() else None
 
     @property
@@ -46,10 +45,7 @@ class Endpoint:
 
     @property
     def pretty_serialize(self) -> Dict:
-        return {
-            "endpoint_function": f"{self.id}",
-            "hits": self.hits
-        }
+        return {"endpoint_function": f"{self.id}", "hits": self.hits}
 
 
 EndpointType = NewType("EndpointType", Endpoint)

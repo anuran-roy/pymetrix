@@ -1,6 +1,7 @@
 # from .endpoints import Endpoint
 import sys
 from pathlib import Path
+
 # PACK_BASE = str(Path(__file__).resolve().parent.parent)
 
 # if PACK_BASE in sys.path:
@@ -117,7 +118,7 @@ class Metrics(MetricsBase):
         #         print(f"{j}: {data[j]}", end="\t")
 
         #     print()
-    
+
     def time_series(self, **kwargs) -> Dict:
         dct: Dict = {}
 
@@ -157,31 +158,27 @@ class Metrics(MetricsBase):
         agg: Dict = {}
         nodes_hit_list: List[Dict] = self._graph.gethits
 
-        endpoints: List[str] = [{"id": x["id"], "hits": x["hits"]} for x in nodes_hit_list]
-        
+        endpoints: List[str] = [
+            {"id": x["id"], "hits": x["hits"]} for x in nodes_hit_list
+        ]
+
         # for i in endpoints:
         #     agg[i] = 0
-        
+
         # for i in nodes_hit_list:
         #     agg[i["id"]] += 1
-        
-        return endpoints
-    
-    def pipeline(self, data: str="time_series", mode: str="live", **kwargs) -> List:
-        last_var = {
-            "id": None,
-            "hits": None,
-            "time": None
-        }
 
-        none_var = {
-            "id": None,
-            "hits": None,
-            "time": None
-        }
-        if mode == 'live':
-            interval: float = 1.0 if "interval" not in kwargs.keys() else kwargs["interval"]
-            if data == 'time_series':
+        return endpoints
+
+    def pipeline(self, data: str = "time_series", mode: str = "live", **kwargs) -> List:
+        last_var = {"id": None, "hits": None, "time": None}
+
+        none_var = {"id": None, "hits": None, "time": None}
+        if mode == "live":
+            interval: float = (
+                1.0 if "interval" not in kwargs.keys() else kwargs["interval"]
+            )
+            if data == "time_series":
                 if "duration" in kwargs.keys():
                     dest = datetime.now() + timedelta(seconds=kwargs["duration"])
                     while datetime.now() <= dest:
@@ -209,7 +206,7 @@ class Metrics(MetricsBase):
                             yield none_var
                             # sleep(interval)
 
-            elif data == 'aggregate':
+            elif data == "aggregate":
                 if "duration" in kwargs.keys():
                     dest = datetime.now() + timedelta(seconds=kwargs["duration"])
                     while datetime.now() <= dest:

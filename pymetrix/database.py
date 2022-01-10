@@ -4,6 +4,7 @@ from typing import List
 
 DB_URL = "sqlite://db.sqlite3"
 
+
 async def initdb(plugin_models: List, **kwargs):
     # Here we create a SQLite DB using file "db.sqlite3"
     #  also specify the app name of "models"
@@ -15,12 +16,16 @@ async def initdb(plugin_models: List, **kwargs):
     # Generate the schema
     await Tortoise.generate_schemas()
 
+
 # run_async is a helper function to run simple async Tortoise scripts.
 def asyncdb(**kwargs):
     run_async(initdb(**kwargs))
 
+
 def addPlugin(loc: str):
     pass
+
+
 class StorageHandler:
     def __init__(self, plugins: List = PLUGINS, loc: str = DB_URL):
         self.plugins: List = plugins
