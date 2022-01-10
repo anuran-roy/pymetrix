@@ -76,7 +76,7 @@ class Metrics(MetricsBase):
         if layer_to_add_to.search(instance=node) is None:
             layer_to_add_to.addNode(node)
 
-        node._endpoint.hits += 1
+        # node._endpoint.hits += 1
 
         if layer_query is None:
             self._graph.addLayer(layer_to_add_to)
@@ -157,15 +157,15 @@ class Metrics(MetricsBase):
         agg: Dict = {}
         nodes_hit_list: List[Dict] = self._graph.gethits
 
-        endpoints: List[str] = [x["id"] for x in nodes_hit_list]
+        endpoints: List[str] = [{"id": x["id"], "hits": x["hits"]} for x in nodes_hit_list]
         
-        for i in endpoints:
-            agg[i] = 0
+        # for i in endpoints:
+        #     agg[i] = 0
         
-        for i in nodes_hit_list:
-            agg[i["id"]] += 1
+        # for i in nodes_hit_list:
+        #     agg[i["id"]] += 1
         
-        return agg
+        return endpoints
     
     def pipeline(self, data: str="time_series", mode: str="live", **kwargs) -> List:
         last_var = {
@@ -174,6 +174,11 @@ class Metrics(MetricsBase):
             "time": None
         }
 
+        none_var = {
+            "id": None,
+            "hits": None,
+            "time": None
+        }
         if mode == 'live':
             interval: float = 1.0 if "interval" not in kwargs.keys() else kwargs["interval"]
             if data == 'time_series':
@@ -188,11 +193,7 @@ class Metrics(MetricsBase):
                                 yield ts[-1]
                                 # sleep(interval)
                         else:
-                            yield {
-                                "id": "id",
-                                "hits": "hits",
-                                "time": "time",
-                            }
+                            yield none_var
                             # sleep(interval)
 
                 else:
@@ -205,11 +206,7 @@ class Metrics(MetricsBase):
                                 yield ts[-1]
                                 # sleep(interval)
                         else:
-                            yield {
-                                "id": "id",
-                                "hits": "hits",
-                                "time": "time",
-                            }
+                            yield none_var
                             # sleep(interval)
 
             elif data == 'aggregate':

@@ -3,19 +3,22 @@ from pymetrix.endpoints import EndpointType
 from typing import List, Dict, Any, NewType
 from uuid import uuid4
 import json
+
 # import pprint
 from datetime import datetime
 
+
 class FlowNode:
     def __init__(self, endpoint: EndpointType, **kwargs):
-        self._name = kwargs["name"] if "name" in kwargs.keys() \
-            else str(uuid4().hex)
+        self._name = kwargs["name"] if "name" in kwargs.keys() else str(uuid4().hex)
         self._endpoint: EndpointType = endpoint
         self._parents: List = []
         self._children: List = []
         self.last_inserted: Any = None
         self._marked: int = 0
         self.time: str = str(datetime.now())
+        self.extra: Dict = {}
+        self.called_from: List = []
 
     def __str__(self):
         # print(f"Node ID: {self._name}")
@@ -61,8 +64,7 @@ class FlowNode:
             inserted_node._parents.append(self)
         else:
             raise errors.DuplicateError(
-                what=inserted_node._name,
-                where=f"list of children of {self._name}"
+                what=inserted_node._name, where=f"list of children of {self._name}"
             )
 
     def comesAfter(self, inserted_node):
@@ -76,8 +78,7 @@ class FlowNode:
             inserted_node.children.append(self)
         else:
             raise errors.DuplicateError(
-                what=inserted_node._name,
-                where=f"list of children of {self._name}"
+                what=inserted_node._name, where=f"list of children of {self._name}"
             )
 
     @property
@@ -149,8 +150,14 @@ class FlowNode:
     @property
     def visualize(self):
         nodes_pairs = []
-        nodes_pairs += [(self._name, x._name, self.pretty_serialize, x.pretty_serialize) for x in self._children]
-        nodes_pairs += [(x._name, self._name, x.pretty_serialize, self.pretty_serialize) for x in self._parents]
+        nodes_pairs += [
+            (self._name, x._name, self.pretty_serialize, x.pretty_serialize)
+            for x in self._children
+        ]
+        nodes_pairs += [
+            (x._name, self._name, x.pretty_serialize, self.pretty_serialize)
+            for x in self._parents
+        ]
 
         return nodes_pairs
 
@@ -160,11 +167,7 @@ class FlowNode:
 
     @property
     def gethits(self):
-        return {
-            "id": self._name,
-            "hits": self._endpoint.hits,
-            "time": self.time
-            }
+        return {"id": self._name, "hits": self._endpoint.hits, "time": self.time, "callers": self.called_from}
 
 
 FlowNodeType = NewType("FlowNodeType", FlowNode)
@@ -172,21 +175,42 @@ FlowNodeType = NewType("FlowNodeType", FlowNode)
 
 class FlowLayer:
     def __init__(self, **kwargs):
-        self._name = kwargs["label"] if "label" in kwargs.keys()\
-            else str(uuid4().hex)
-        self._previous = kwargs["previous"] if "previous" in kwargs.keys()\
-            else None
+        self._name = kwargs["label"] if "label" in kwargs.keys() else str(uuid4().hex)
+        self._previous = kwargs["previous"] if "previous" in kwargs.keys() else None
         self._next = kwargs["next"] if "next" in kwargs.keys() else None
         self._nodes: List = []
 
-    def addNode(self, node: FlowNodeType, index=-1):
-        if node not in self._nodes:
+    def addNode(self, node: FlowNodeType, index: int = -1, **kwargs):
+        parent = None if "parent" in kwargs.keys() else None
+        if node._name not in [x._name for x in self._nodes]:
+            node._endpoint.hits += 1
+            node.called_from += [
+                        {
+                            "caller": parent,
+                            "time": str(datetime.now())
+                        }
+                    ]
+
             if index != -1:
                 self._nodes.add(index, node)
             else:
                 self._nodes.append(node)
         else:
-            raise errors.DuplicateError(what=node._name, where=self._name)
+            # raise errors.DuplicateError(what=node._name, where=self._name)
+            for x in self._nodes:
+                if x._name == node._name:
+                    for y in self._nodes:
+                        if y._name == parent:
+                            x._parents += [y]
+
+                    x.called_from += [
+                        {
+                            "caller": parent,
+                            "time": str(datetime.now())
+                        }
+                    ]
+                    x._endpoint.hits += 1
+
 
     @property
     def nodes(self):
@@ -272,8 +296,7 @@ FlowLayerType = NewType("FlowLayerType", FlowLayer)
 
 class Flow:
     def __init__(self, **kwargs):
-        self._name = kwargs["name"] if "name" in kwargs.keys()\
-            else str(uuid4().hex)
+        self._name = kwargs["name"] if "name" in kwargs.keys() else str(uuid4().hex)
         self._graph: List = []
 
     @property
@@ -297,7 +320,7 @@ class Flow:
         if layer not in self._graph:
             if "index" in kwargs.keys():
                 left = self._graph[: kwargs["index"]]
-                right = self._graph[kwargs["index"]:]
+                right = self._graph[kwargs["index"] :]
                 left.append(layer)
                 self._graph = left + right
             else:
