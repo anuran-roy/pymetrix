@@ -361,9 +361,9 @@ class Flow:
         else:
             return results
 
-    def detect_remove_cycles(self):
-        for i in self._graph:
-            pass
+    # def detect_remove_cycles(self):
+    #     for i in self._graph:
+    #         pass
 
     def exists(self, **kwargs):
         try:

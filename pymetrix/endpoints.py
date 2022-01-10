@@ -1,5 +1,4 @@
 from typing import NewType, Dict  # , List
-from datetime import datetime
 
 
 class Endpoint:

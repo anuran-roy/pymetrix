@@ -1,6 +1,6 @@
 # from .endpoints import Endpoint
-import sys
-from pathlib import Path
+# import sys
+# from pathlib import Path
 
 # PACK_BASE = str(Path(__file__).resolve().parent.parent)
 
@@ -17,13 +17,13 @@ from pymetrix.flow import (
     FlowType,
 )
 
-from time import sleep
-from pymetrix.settings import PLUGINS, set_path
+# from time import sleep
+from pymetrix.settings import PLUGINS,  # set_path
 from typing import List, Dict, Any
 from pymetrix.plugins import PluginType
 from pymetrix.database import StorageHandler
 
-from functools import lru_cache
+# from functools import lru_cache
 from datetime import datetime, timedelta
 
 # from . import errors
@@ -155,7 +155,6 @@ class Metrics(MetricsBase):
         #     print()
 
     def aggregate(self) -> Dict:
-        agg: Dict = {}
         nodes_hit_list: List[Dict] = self._graph.gethits
 
         endpoints: List[str] = [
