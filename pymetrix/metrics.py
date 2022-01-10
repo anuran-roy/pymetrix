@@ -18,7 +18,7 @@ from pymetrix.flow import (
 )
 
 # from time import sleep
-from pymetrix.settings import PLUGINS,  # set_path
+from pymetrix.settings import PLUGINS  # , set_path
 from typing import List, Dict, Any
 from pymetrix.plugins import PluginType
 from pymetrix.database import StorageHandler

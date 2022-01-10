@@ -40,7 +40,7 @@ class FlowNode:
         if type(parents) == type([]):
             self._parents += parents
         else:
-            self._parents.append(parents)
+            self._parents += [parents]
 
     @property
     def children(self):
@@ -51,7 +51,7 @@ class FlowNode:
         if type(children_ob) == type([]):
             self._children += children_ob
         else:
-            self._children.append(children_ob)
+            self._children += [children_ob]
 
     def comesBefore(self, inserted_node):
         if settings.VERBOSE:
@@ -60,8 +60,8 @@ class FlowNode:
         if inserted_node not in self._children:
             if settings.VERBOSE:
                 print("Branch 1 invoked!")
-            self._children.append(inserted_node)
-            inserted_node._parents.append(self)
+            self._children += [inserted_node]
+            inserted_node._parents += [self]
         else:
             raise errors.DuplicateError(
                 what=inserted_node._name, where=f"list of children of {self._name}"

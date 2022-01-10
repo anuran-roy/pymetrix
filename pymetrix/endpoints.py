@@ -14,7 +14,7 @@ class Endpoint:
         return self.hits
 
     # @property
-    def get_endpoint(self) -> callable:
+    def get_endpoint(self) -> str:
         return self.endpoint
 
     # @endpoint.setter

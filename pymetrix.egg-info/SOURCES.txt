@@ -32,5 +32,3 @@ pymetrix.egg-info/SOURCES.txt
 pymetrix.egg-info/dependency_links.txt
 pymetrix.egg-info/not-zip-safe
 pymetrix.egg-info/top_level.txt
-tests/__init__.py
-tests/flow_test.py
