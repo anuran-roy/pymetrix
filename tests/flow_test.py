@@ -66,7 +66,6 @@ def exc():
     print(graph.search(label="Layer1"))
     print(l1.search(instance=obj3))
 
-
     # obj2.comesBefore(obj3)
     # obj2.comesBefore(obj1)
     # obj2.comesBefore(obj4)
@@ -104,5 +103,6 @@ def exc():
     # Command to visualize network
     visualize.directed_graph(graph.visualize)
     visualize.directed_graph(graph.visualize)
+
 
 exc()

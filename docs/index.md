@@ -1,4 +1,22 @@
-# Pymetrix
+<!-- # Welcome to MkDocs
+
+For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+
+## Commands
+
+* `mkdocs new [dir-name]` - Create a new project.
+* `mkdocs serve` - Start the live-reloading docs server.
+* `mkdocs build` - Build the documentation site.
+* `mkdocs -h` - Print help message and exit.
+
+## Project layout
+
+    mkdocs.yml    # The configuration file.
+    docs/
+        index.md  # The documentation homepage.
+        ...       # Other markdown pages, images and other files. -->
+
+# Pymetrix-Python
 
 [![Docs](https://img.shields.io/website?color=whi&down_color=red&down_message=Offline&label=Docs&logo=readthedocs&logoColor=white&style=for-the-badge&up_color=green&up_message=Online&url=https%3A%2F%2Fanuran-roy.github.io%2Ftags%2Fpymetrix%2F)](https://anuran-roy.github.io/tags/pymetrix/)
 ## What is Pymetrix?
@@ -24,7 +42,7 @@ After adding the required lines, the code will look something like this:
 from random import randint
 from pymetrix.metrics import Metrics
 
-metricman = Metrics(__file__)
+metricman = Metrics(loc=__file__)
 foo_obj = None
 
 def foo():
@@ -35,6 +53,7 @@ def foo():
 
     metricman.add_to_analytics(foo_obj, layerName="foo")
 ```
+
 
 ## Using with various Web Frameworks
 
@@ -56,17 +75,22 @@ from typing import Dict, List, Any, Tuple, NewType
 
 from pymetrix import metrics, endpoints, flow
 import pymetrix.visualize as vs
+
 # Create your views here.
 
 
-metricman = metrics.Metrics(loc="Test") # Initialize the Analyx Metrics object
+metricman = metrics.Metrics(loc="Test")  # Initialize the Pymetrix Metrics object
 
 
 def blog(request):
     # Other code
     ...
-    node2: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/blog", id=blog), name="Blog")
-    metricman.add_to_analytics(node2)  # Add the function to the graph corresponding to the metricman object
+    node2: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/blog", id=blog), name="Blog"
+    )
+    metricman.add_to_analytics(
+        node2
+    )  # Add the function to the graph corresponding to the metricman object
 
     # any return stuff
     return HttpResponse("<h1>Blog works!</h1>")
@@ -75,8 +99,12 @@ def blog(request):
 def about(request):
     # Other code
     ...
-    node3: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/about", id=about), name="About")
-    metricman.add_to_analytics(node3)  # Add the function to the graph corresponding to the metricman object
+    node3: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/about", id=about), name="About"
+    )
+    metricman.add_to_analytics(
+        node3
+    )  # Add the function to the graph corresponding to the metricman object
 
     # any return stuff
     return HttpResponse("<h1>About works!</h1>")
@@ -85,8 +113,12 @@ def about(request):
 def contact(request):
     # Other code
     ...
-    node4: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact")
-    metricman.add_to_analytics(node4)  # Add the function to the graph corresponding to the metricman object
+    node4: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact"
+    )
+    metricman.add_to_analytics(
+        node4
+    )  # Add the function to the graph corresponding to the metricman object
 
     # any return stuff
     return HttpResponse("<h1>Contact works!</h1>")
@@ -95,8 +127,13 @@ def contact(request):
 def collaborations(request):
     # Other code
     ...
-    node6: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/collaborations", id=collaborations), name="Collaborations")
-    metricman.add_to_analytics(node6)  # Add the function to the graph corresponding to the metricman object
+    node6: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/collaborations", id=collaborations),
+        name="Collaborations",
+    )
+    metricman.add_to_analytics(
+        node6
+    )  # Add the function to the graph corresponding to the metricman object
 
     # any return stuff
     return HttpResponse("<h1>Collaborations works!</h1>")
@@ -105,24 +142,34 @@ def collaborations(request):
 def events(request):
     # Other code
     ...
-    node5: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/events", id=events), name="Events")
-    metricman.add_to_analytics(node5)  # Add the function to the graph corresponding to the metricman object
+    node5: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/events", id=events), name="Events"
+    )
+    metricman.add_to_analytics(
+        node5
+    )  # Add the function to the graph corresponding to the metricman object
 
     # any return stuff
     return HttpResponse("<h1>Events works!</h1>")
 
 
 def home(request):
-    node1: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/home1", id=home), name="Home")
-    metricman.add_to_analytics(node1)  # Add the function to the graph corresponding to the metricman object
+    node1: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/home1", id=home), name="Home"
+    )
+    metricman.add_to_analytics(
+        node1
+    )  # Add the function to the graph corresponding to the metricman object
 
     return HttpResponse("<h1>Home works!</h1>")
 
 
 # The methods below won't be added for metrics
 
+
 def someMethod(request):
     ...
+
 
 class someClass:
     ...
@@ -150,7 +197,7 @@ Integrating Pymetrix with FastAPI is as easy as it is in Django, if not easier.
 ```python
 from fastapi import FastAPI, status
 from pymetrix import metrics, endpoints, flow
-
+from fastapi.responses import ORJSONResponse
 
 app = FastAPI()
 
@@ -158,61 +205,74 @@ app = FastAPI()
 metricman = metrics.Metrics(loc="Test")
 
 
-@app.get('/', status_code=status.HTTP_200_OK)
+@app.get("/home", status_code=status.HTTP_200_OK, response_class=ORJSONResponse)
 async def home():
-    node1: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/home1", id=home), name="Home")
+    node1: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/home", id=home), name="Home"
+    )
     metricman.add_to_analytics(node1)
 
-    return {
-        "response": status.HTTP_200_OK,
-        "message": "This is the home page"
-    }
+    return {"response": status.HTTP_200_OK, "message": "This is the home page"}
 
 
-@app.get('/blog', status_code=status.HTTP_200_OK)
-async def blog():
-    node2: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/blog", id=blog), name="Blog")
+@app.get("/contact", status_code=status.HTTP_200_OK, response_class=ORJSONResponse)
+async def contact():
+    node2: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact"
+    )
     metricman.add_to_analytics(node2)
-    
-    return {
-        "response": status.HTTP_200_OK,
-        "message": "This is the blog page"
-    }
+
+    return {"response": status.HTTP_200_OK, "message": "This is the contact page"}
 
 
-@app.get('/newsletter', status_code=status.HTTP_200_OK)
-async def newsletter():
-    node3: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/newsletter", id=newsletter), name="newsletter")
+@app.get("/collaborations", status_code=status.HTTP_200_OK, response_class=ORJSONResponse)
+async def collaborations():
+    node3: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/collaborations", id=collaborations),
+        name="Collaborations",
+    )
     metricman.add_to_analytics(node3)
-    
+
     return {
         "response": status.HTTP_200_OK,
-        "message": "This is the newsletter page"
+        "message": "This is the collaborations page",
     }
 
 
-# The following methods won't be monitored by Pymetrix
-@app.get('/anEndpoint', status_code=status.HTTP_200_OK)
-async def method1():
-    ...
+@app.get("/events", status_code=status.HTTP_200_OK, response_class=ORJSONResponse)
+async def events():
+    node4: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/events", id=events), name="Events"
+    )
+    metricman.add_to_analytics(node4)
+
+    return {"response": status.HTTP_200_OK, "message": "This is the events page"}
 
 
-@app.get('/anotherEndpoint', status_code=status.HTTP_200_OK)
-async def method2():
-    ...
+@app.get("/blog", status_code=status.HTTP_200_OK, response_class=ORJSONResponse)
+async def blog():
+    node5: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/blog", id=blog), name="Blog"
+    )
+    metricman.add_to_analytics(node5)
+
+    return {"response": status.HTTP_200_OK, "message": "This is the blog page"}
 
 
-@app.get('/aThirdEndpoint', status_code=status.HTTP_200_OK)
-async def method3():
-    ...
+@app.get("/about", status_code=status.HTTP_200_OK, response_class=ORJSONResponse)
+async def about():
+    node6: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/about", id=about), name="About"
+    )
+    metricman.add_to_analytics(node6)
+
+    return {"response": status.HTTP_200_OK, "message": "This is the about page"}
 
 
-@app.get('/statistics', status_code=status.HTTP_200_OK)
+@app.get("/statistics", status_code=status.HTTP_200_OK, response_class=ORJSONResponse)
 async def get_statistics():
-    return {
-        "response": status.HTTP_200_OK,
-        "message": metricman.aggregate()
-    }
+    return {"response": status.HTTP_200_OK, "message": metricman.aggregate()}
+
 ```
 
 Now we start the ``uvicorn`` server using:
@@ -222,6 +282,8 @@ uvicorn main:app --port 8000 --reload
 ```
 
 Now going to ``localhost:8000/statistics`` will give you the aggregate hits on each endpoint.
+
+Also, here we are serializing the data [using orjson, instead of regular JSON](#orjson-note)
 
 Just like the case with Django, you can initialize a Pymetrix object in the main.py file and then import into other scripts from there, if you want a centralized view. But you're also free to take a modular approach with your project by initializing the Pymetrix objects within each module - your skills are your limit.
 
@@ -244,73 +306,76 @@ metricman = metrics.Metrics(loc="Test")
 
 
 @get(path="/home")
-async def home() -> Dict:
-    node1: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/home", id=home), name="Home")
+def home() -> Dict:
+    node1: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/home", id=home), name="Home"
+    )
     metricman.add_to_analytics(node1)
-    return {
-        "response": 200,
-        "message": "Home Page Works"
-    }
+    return {"response": 200, "message": "Home Page Works"}
 
 
 @get(path="/contact")
-async def contact() -> Dict:
-    node2: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact")
+def contact() -> Dict:
+    node2: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact"
+    )
     metricman.add_to_analytics(node2)
-    return {
-        "response": 200,
-        "message": "Contact Page Works"
-    }
+    return {"response": 200, "message": "Contact Page Works"}
 
 
 @get(path="/collaborations")
-async def collaborations() -> Dict:
-    node3: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/collaborations", id=collaborations), name="Collaborations")
+def collaborations() -> Dict:
+    node3: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/collaborations", id=collaborations),
+        name="Collaborations",
+    )
     metricman.add_to_analytics(node3)
-    return {
-        "response": 200,
-        "message": "Collaborations Page Works"
-    }
+    return {"response": 200, "message": "Collaborations Page Works"}
 
 
 @get(path="/events")
-async def events() -> Dict:
-    node4: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/events", id=events), name="Events")
+def events() -> Dict:
+    node4: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/events", id=events), name="Events"
+    )
     metricman.add_to_analytics(node4)
-    return {
-        "response": 200,
-        "message": "Events Page Works"
-    }
+    return {"response": 200, "message": "Events Page Works"}
 
 
 @get(path="/blog")
-async def blog() -> Dict:
-    node5: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/blog", id=blog), name="Blog")
+def blog() -> Dict:
+    node5: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/blog", id=blog), name="Blog"
+    )
     metricman.add_to_analytics(node5)
-    return {
-        "response": 200,
-        "message": "Blog Page Works"
-    }
+    return {"response": 200, "message": "Blog Page Works"}
 
 
 @get(path="/about")
-async def about() -> Dict:
-    node6: flow.FlowNodeType = flow.FlowNode(endpoints.Endpoint(endpoint="/about", id=about), name="About")
+def about() -> Dict:
+    node6: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/about", id=about), name="About"
+    )
     metricman.add_to_analytics(node6)
-    return {
-        "response": 200,
-        "message": "About Page Works"
-    }
+    return {"response": 200, "message": "About Page Works"}
 
 
 @get(path="/statistics")
-async def statistics() -> Dict:
-    return {
-        "response": 200,
-        "message": metricman.aggregate()
-    }
+def statistics() -> Dict:
+    node2: flow.FlowNodeType = flow.FlowNode(
+        endpoints.Endpoint(endpoint="/contact", id=contact), name="Contact"
+    )
+    metricman.add_to_analytics(node2)
+    return {"response": 200, "message": metricman.time_series()}
 
 
-app = Starlite(route_handlers=[home, contact, collaborations, events, blog, about, statistics])
+app = Starlite(
+    route_handlers=[home, contact, collaborations, events, blog, about, statistics]
+)
 ```
+
+Do note that Starlite uses the orjson library for its responses by default.
+
+#### Orjson Note
+In **[orjson](https://pypi.org/project/orjson/)**, the response is a JSON byte string and not a object. This dramatically speeds up the serialization process.
 <!-- For looking into what more Pymetrix can do, head to ``tests/flow_test.py``. -->
