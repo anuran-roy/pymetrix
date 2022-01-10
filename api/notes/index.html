@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://anuran-roy.github.io/pymetrix/api/tips/">
+        <link rel="canonical" href="https://anuran-roy.github.io/pymetrix/api/notes/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
     
       
-        <title>Tips - Pymetrix</title>
+        <title>Notes - Pymetrix</title>
       
     
     
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tips
+              Notes
             
           </span>
         </div>
@@ -300,12 +300,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Tips
+          Notes
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Tips
+        Notes
       </a>
       
         
@@ -326,12 +326,25 @@
     Introduction
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#1-time-series-aggregate" class="md-nav__link">
     1. Time Series &gt; Aggregate
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dont-use-pipeline-yet" class="md-nav__link">
+    2. Don't use pipeline() yet
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -379,12 +392,25 @@
     Introduction
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#1-time-series-aggregate" class="md-nav__link">
     1. Time Series &gt; Aggregate
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dont-use-pipeline-yet" class="md-nav__link">
+    2. Don't use pipeline() yet
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -400,17 +426,28 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/anuran-roy/pymetrix-python/edit/master/docs/api/tips.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/anuran-roy/pymetrix-python/edit/master/docs/api/notes.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-  <h1>Tips</h1>
+  <h1>Notes</h1>
 
 <h2 id="introduction">Introduction</h2>
 <p>Being the nascent library that it is at the moment, Pymetrix is by no means fully optimized. I am working actively on it, and any help is ABSOLUTELY WELCOME! 😁</p>
-<p>That being said, I'd like to give you some tips for getting the best results out of Pymetrix.</p>
-<h2 id="1-time-series-aggregate">1. Time Series &gt; Aggregate</h2>
+<p>That being said, these are some of my notes for getting the best results out of Pymetrix.</p>
+<h3 id="1-time-series-aggregate">1. Time Series &gt; Aggregate</h3>
+<p>Time Series Data is a lot more meaningful than aggregated hits data. You can aggregate them over pipelines, stream them into databases...  you are only limited by your imagination as to what you can do with them.</p>
+<p>Also, performance wise, Pymetrix processes and exports time series data faster than aggregated hits data. This is because the aggregation method is built atop the time series method. This essentially means that when you export your data in aggregated form, it is essentially doing the following things:</p>
+<ol>
+<li>Retrieve the time series data</li>
+<li>Aggregate the data according to the targets/endpoint names<span style="color:red">*</span></li>
+<li>Exporting the aggregated data</li>
+</ol>
+<p>Step 2 is the most tedious process, and is the extra step in aggregation. Being implemented in Python, it's a given that it'll be slow. Hence to speed up your workflow for large number of entries, exporting time series data is recommended. Also, time series data has a consistent format, which may not be the case with aggregated data, depending on which type of aggregation you want to do.</p>
+<p><span style="color:red">*</span><strong>UPDATE</strong>: Now the basic hit count comes directly with the time series format. Still, what I told above still holds for other kind of aggregates. </p>
+<h3 id="2-dont-use-pipeline-yet">2. Don't use <code>pipeline()</code> yet</h3>
+<p>The <code>pipeline()</code> method is a method that'll greatly reduce your workload, and I am working actively on it. That being said, don't use it just yet - there are plenty of bugs in it, and I don't think that it'll be good for you to implement something into your code that's buggy. So please give me some time to work on it and use the <code>time_series()</code> and <code>aggregate()</code> methods instead.</p>
 
               
             </article>

@@ -309,6 +309,19 @@
     3. Using with Starlite
   </a>
   
+    <nav class="md-nav" aria-label="3. Using with Starlite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orjson-note" class="md-nav__link">
+    Orjson Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -372,8 +385,8 @@
   
   
     <li class="md-nav__item">
-      <a href="api/tips/" class="md-nav__link">
-        Tips
+      <a href="api/notes/" class="md-nav__link">
+        Notes
       </a>
     </li>
   
@@ -453,6 +466,19 @@
     3. Using with Starlite
   </a>
   
+    <nav class="md-nav" aria-label="3. Using with Starlite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orjson-note" class="md-nav__link">
+    Orjson Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -511,7 +537,7 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">pymetrix.metrics</span> <span class="kn">import</span> <span class="n">Metrics</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="__codelineno-1-4"></a><span class="n">metricman</span> <span class="o">=</span> <span class="n">Metrics</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="__codelineno-1-4"></a><span class="n">metricman</span> <span class="o">=</span> <span class="n">Metrics</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="vm">__file__</span><span class="p">)</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="__codelineno-1-5"></a><span class="n">foo_obj</span> <span class="o">=</span> <span class="kc">None</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="__codelineno-1-6"></a>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="__codelineno-1-7"></a><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
@@ -522,219 +548,214 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="__codelineno-1-12"></a>
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="__codelineno-1-13"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">foo_obj</span><span class="p">,</span> <span class="n">layerName</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p>You can access the metrics of <code>foo()</code> from the <code>metricman</code> object with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="__codelineno-2-1"></a><span class="n">metricman</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
-</code></pre></div>
-<p>To get all the metrics of all the methods at once:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="__codelineno-3-1"></a><span class="n">metricman</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-</code></pre></div>
 <h2 id="using-with-various-web-frameworks">Using with various Web Frameworks</h2>
 <p>Pymetrix can be used in conjunction with other frameworks as well, including web frameworks. The following examples will illustrate it more clearly.</p>
 <h3 id="1-using-with-django">1. Using with Django</h3>
 <p><strong><a href="https://www.djangoproject.com/">Django</a></strong> is the most popular framework of choice for a vast majority of Python web developers, often dubbed as "the framework for perfectionists with deadlines". It is a clean, concise and opinionated framework that enforces code reusability, modularity and code readability. It has an intuitive directory structure, and a large ecosystem of plugins tailor-made for it. Besides those, the usual Python libraries that can be used in tandem with it for designing business logic as well.</p>
 <p>Being a library, you can import Pymetrix on any file that will be executed by the server on calling the endpoints. This is usually the <code>views.py</code> file in a standard Django project.</p>
 <p>A sample <code>views.py</code> in Django with Pymetrix (Tested on Django 4.0.0):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">HttpResponse</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">StreamingHttpResponse</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="__codelineno-4-4"></a><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">NewType</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="__codelineno-4-6"></a><span class="kn">from</span> <span class="nn">pymetrix</span> <span class="kn">import</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">,</span> <span class="n">flow</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="__codelineno-4-7"></a><span class="kn">import</span> <span class="nn">pymetrix.visualize</span> <span class="k">as</span> <span class="nn">vs</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="__codelineno-4-9"></a><span class="c1"># Create your views here.</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="__codelineno-4-11"></a>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="__codelineno-4-12"></a><span class="n">metricman</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">Metrics</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>  <span class="c1"># Initialize the Analyx Metrics object</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="__codelineno-4-13"></a>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="__codelineno-4-14"></a>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="__codelineno-4-15"></a><span class="k">def</span> <span class="nf">blog</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="__codelineno-4-16"></a>    <span class="c1"># Other code</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="__codelineno-4-17"></a>    <span class="o">...</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="__codelineno-4-18"></a>    <span class="n">node2</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="__codelineno-4-19"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/blog&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Blog&quot;</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="__codelineno-4-20"></a>    <span class="p">)</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="__codelineno-4-21"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="__codelineno-4-22"></a>        <span class="n">node2</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="__codelineno-4-23"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="__codelineno-4-24"></a>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="__codelineno-4-25"></a>    <span class="c1"># any return stuff</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="__codelineno-4-26"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Blog works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="__codelineno-4-27"></a>
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="__codelineno-4-28"></a>
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="__codelineno-4-29"></a><span class="k">def</span> <span class="nf">about</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="__codelineno-4-30"></a>    <span class="c1"># Other code</span>
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="__codelineno-4-31"></a>    <span class="o">...</span>
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="__codelineno-4-32"></a>    <span class="n">node3</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="__codelineno-4-33"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">about</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;About&quot;</span>
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="__codelineno-4-34"></a>    <span class="p">)</span>
-<a id="__codelineno-4-35" name="__codelineno-4-35" href="__codelineno-4-35"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
-<a id="__codelineno-4-36" name="__codelineno-4-36" href="__codelineno-4-36"></a>        <span class="n">node3</span>
-<a id="__codelineno-4-37" name="__codelineno-4-37" href="__codelineno-4-37"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
-<a id="__codelineno-4-38" name="__codelineno-4-38" href="__codelineno-4-38"></a>
-<a id="__codelineno-4-39" name="__codelineno-4-39" href="__codelineno-4-39"></a>    <span class="c1"># any return stuff</span>
-<a id="__codelineno-4-40" name="__codelineno-4-40" href="__codelineno-4-40"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;About works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-41" name="__codelineno-4-41" href="__codelineno-4-41"></a>
-<a id="__codelineno-4-42" name="__codelineno-4-42" href="__codelineno-4-42"></a>
-<a id="__codelineno-4-43" name="__codelineno-4-43" href="__codelineno-4-43"></a><span class="k">def</span> <span class="nf">contact</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-44" name="__codelineno-4-44" href="__codelineno-4-44"></a>    <span class="c1"># Other code</span>
-<a id="__codelineno-4-45" name="__codelineno-4-45" href="__codelineno-4-45"></a>    <span class="o">...</span>
-<a id="__codelineno-4-46" name="__codelineno-4-46" href="__codelineno-4-46"></a>    <span class="n">node4</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-4-47" name="__codelineno-4-47" href="__codelineno-4-47"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">contact</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Contact&quot;</span>
-<a id="__codelineno-4-48" name="__codelineno-4-48" href="__codelineno-4-48"></a>    <span class="p">)</span>
-<a id="__codelineno-4-49" name="__codelineno-4-49" href="__codelineno-4-49"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
-<a id="__codelineno-4-50" name="__codelineno-4-50" href="__codelineno-4-50"></a>        <span class="n">node4</span>
-<a id="__codelineno-4-51" name="__codelineno-4-51" href="__codelineno-4-51"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
-<a id="__codelineno-4-52" name="__codelineno-4-52" href="__codelineno-4-52"></a>
-<a id="__codelineno-4-53" name="__codelineno-4-53" href="__codelineno-4-53"></a>    <span class="c1"># any return stuff</span>
-<a id="__codelineno-4-54" name="__codelineno-4-54" href="__codelineno-4-54"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Contact works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-55" name="__codelineno-4-55" href="__codelineno-4-55"></a>
-<a id="__codelineno-4-56" name="__codelineno-4-56" href="__codelineno-4-56"></a>
-<a id="__codelineno-4-57" name="__codelineno-4-57" href="__codelineno-4-57"></a><span class="k">def</span> <span class="nf">collaborations</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-58" name="__codelineno-4-58" href="__codelineno-4-58"></a>    <span class="c1"># Other code</span>
-<a id="__codelineno-4-59" name="__codelineno-4-59" href="__codelineno-4-59"></a>    <span class="o">...</span>
-<a id="__codelineno-4-60" name="__codelineno-4-60" href="__codelineno-4-60"></a>    <span class="n">node6</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-4-61" name="__codelineno-4-61" href="__codelineno-4-61"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">collaborations</span><span class="p">),</span>
-<a id="__codelineno-4-62" name="__codelineno-4-62" href="__codelineno-4-62"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Collaborations&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-63" name="__codelineno-4-63" href="__codelineno-4-63"></a>    <span class="p">)</span>
-<a id="__codelineno-4-64" name="__codelineno-4-64" href="__codelineno-4-64"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
-<a id="__codelineno-4-65" name="__codelineno-4-65" href="__codelineno-4-65"></a>        <span class="n">node6</span>
-<a id="__codelineno-4-66" name="__codelineno-4-66" href="__codelineno-4-66"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
-<a id="__codelineno-4-67" name="__codelineno-4-67" href="__codelineno-4-67"></a>
-<a id="__codelineno-4-68" name="__codelineno-4-68" href="__codelineno-4-68"></a>    <span class="c1"># any return stuff</span>
-<a id="__codelineno-4-69" name="__codelineno-4-69" href="__codelineno-4-69"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Collaborations works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-70" name="__codelineno-4-70" href="__codelineno-4-70"></a>
-<a id="__codelineno-4-71" name="__codelineno-4-71" href="__codelineno-4-71"></a>
-<a id="__codelineno-4-72" name="__codelineno-4-72" href="__codelineno-4-72"></a><span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-73" name="__codelineno-4-73" href="__codelineno-4-73"></a>    <span class="c1"># Other code</span>
-<a id="__codelineno-4-74" name="__codelineno-4-74" href="__codelineno-4-74"></a>    <span class="o">...</span>
-<a id="__codelineno-4-75" name="__codelineno-4-75" href="__codelineno-4-75"></a>    <span class="n">node5</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-4-76" name="__codelineno-4-76" href="__codelineno-4-76"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/events&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">events</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Events&quot;</span>
-<a id="__codelineno-4-77" name="__codelineno-4-77" href="__codelineno-4-77"></a>    <span class="p">)</span>
-<a id="__codelineno-4-78" name="__codelineno-4-78" href="__codelineno-4-78"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
-<a id="__codelineno-4-79" name="__codelineno-4-79" href="__codelineno-4-79"></a>        <span class="n">node5</span>
-<a id="__codelineno-4-80" name="__codelineno-4-80" href="__codelineno-4-80"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
-<a id="__codelineno-4-81" name="__codelineno-4-81" href="__codelineno-4-81"></a>
-<a id="__codelineno-4-82" name="__codelineno-4-82" href="__codelineno-4-82"></a>    <span class="c1"># any return stuff</span>
-<a id="__codelineno-4-83" name="__codelineno-4-83" href="__codelineno-4-83"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Events works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-84" name="__codelineno-4-84" href="__codelineno-4-84"></a>
-<a id="__codelineno-4-85" name="__codelineno-4-85" href="__codelineno-4-85"></a>
-<a id="__codelineno-4-86" name="__codelineno-4-86" href="__codelineno-4-86"></a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-87" name="__codelineno-4-87" href="__codelineno-4-87"></a>    <span class="n">node1</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-4-88" name="__codelineno-4-88" href="__codelineno-4-88"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/home1&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">home</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Home&quot;</span>
-<a id="__codelineno-4-89" name="__codelineno-4-89" href="__codelineno-4-89"></a>    <span class="p">)</span>
-<a id="__codelineno-4-90" name="__codelineno-4-90" href="__codelineno-4-90"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
-<a id="__codelineno-4-91" name="__codelineno-4-91" href="__codelineno-4-91"></a>        <span class="n">node1</span>
-<a id="__codelineno-4-92" name="__codelineno-4-92" href="__codelineno-4-92"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
-<a id="__codelineno-4-93" name="__codelineno-4-93" href="__codelineno-4-93"></a>
-<a id="__codelineno-4-94" name="__codelineno-4-94" href="__codelineno-4-94"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Home works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-95" name="__codelineno-4-95" href="__codelineno-4-95"></a>
-<a id="__codelineno-4-96" name="__codelineno-4-96" href="__codelineno-4-96"></a>
-<a id="__codelineno-4-97" name="__codelineno-4-97" href="__codelineno-4-97"></a><span class="c1"># The methods below won&#39;t be added for metrics</span>
-<a id="__codelineno-4-98" name="__codelineno-4-98" href="__codelineno-4-98"></a>
-<a id="__codelineno-4-99" name="__codelineno-4-99" href="__codelineno-4-99"></a>
-<a id="__codelineno-4-100" name="__codelineno-4-100" href="__codelineno-4-100"></a><span class="k">def</span> <span class="nf">someMethod</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-101" name="__codelineno-4-101" href="__codelineno-4-101"></a>    <span class="o">...</span>
-<a id="__codelineno-4-102" name="__codelineno-4-102" href="__codelineno-4-102"></a>
-<a id="__codelineno-4-103" name="__codelineno-4-103" href="__codelineno-4-103"></a>
-<a id="__codelineno-4-104" name="__codelineno-4-104" href="__codelineno-4-104"></a><span class="k">class</span> <span class="nc">someClass</span><span class="p">:</span>
-<a id="__codelineno-4-105" name="__codelineno-4-105" href="__codelineno-4-105"></a>    <span class="o">...</span>
-<a id="__codelineno-4-106" name="__codelineno-4-106" href="__codelineno-4-106"></a>
-<a id="__codelineno-4-107" name="__codelineno-4-107" href="__codelineno-4-107"></a>
-<a id="__codelineno-4-108" name="__codelineno-4-108" href="__codelineno-4-108"></a><span class="k">def</span> <span class="nf">anotherMethod</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-109" name="__codelineno-4-109" href="__codelineno-4-109"></a>    <span class="o">...</span>
-<a id="__codelineno-4-110" name="__codelineno-4-110" href="__codelineno-4-110"></a>
-<a id="__codelineno-4-111" name="__codelineno-4-111" href="__codelineno-4-111"></a>
-<a id="__codelineno-4-112" name="__codelineno-4-112" href="__codelineno-4-112"></a><span class="k">def</span> <span class="nf">aThirdMethod</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<a id="__codelineno-4-113" name="__codelineno-4-113" href="__codelineno-4-113"></a>    <span class="o">...</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">HttpResponse</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">StreamingHttpResponse</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="__codelineno-2-4"></a><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">NewType</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="__codelineno-2-6"></a><span class="kn">from</span> <span class="nn">pymetrix</span> <span class="kn">import</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">,</span> <span class="n">flow</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="__codelineno-2-7"></a><span class="kn">import</span> <span class="nn">pymetrix.visualize</span> <span class="k">as</span> <span class="nn">vs</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="__codelineno-2-9"></a><span class="c1"># Create your views here.</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="__codelineno-2-12"></a><span class="n">metricman</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">Metrics</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>  <span class="c1"># Initialize the Pymetrix Metrics object</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="__codelineno-2-15"></a><span class="k">def</span> <span class="nf">blog</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="__codelineno-2-16"></a>    <span class="c1"># Other code</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="__codelineno-2-17"></a>    <span class="o">...</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="__codelineno-2-18"></a>    <span class="n">node2</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="__codelineno-2-19"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/blog&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Blog&quot;</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="__codelineno-2-20"></a>    <span class="p">)</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="__codelineno-2-21"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="__codelineno-2-22"></a>        <span class="n">node2</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="__codelineno-2-23"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="__codelineno-2-24"></a>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="__codelineno-2-25"></a>    <span class="c1"># any return stuff</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="__codelineno-2-26"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Blog works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="__codelineno-2-27"></a>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="__codelineno-2-28"></a>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="__codelineno-2-29"></a><span class="k">def</span> <span class="nf">about</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="__codelineno-2-30"></a>    <span class="c1"># Other code</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="__codelineno-2-31"></a>    <span class="o">...</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="__codelineno-2-32"></a>    <span class="n">node3</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="__codelineno-2-33"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">about</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;About&quot;</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="__codelineno-2-34"></a>    <span class="p">)</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="__codelineno-2-35"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="__codelineno-2-36"></a>        <span class="n">node3</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="__codelineno-2-37"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="__codelineno-2-38"></a>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="__codelineno-2-39"></a>    <span class="c1"># any return stuff</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="__codelineno-2-40"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;About works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="__codelineno-2-41"></a>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="__codelineno-2-42"></a>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="__codelineno-2-43"></a><span class="k">def</span> <span class="nf">contact</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="__codelineno-2-44"></a>    <span class="c1"># Other code</span>
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="__codelineno-2-45"></a>    <span class="o">...</span>
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="__codelineno-2-46"></a>    <span class="n">node4</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="__codelineno-2-47"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">contact</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Contact&quot;</span>
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="__codelineno-2-48"></a>    <span class="p">)</span>
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="__codelineno-2-49"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="__codelineno-2-50"></a>        <span class="n">node4</span>
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="__codelineno-2-51"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="__codelineno-2-52"></a>
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="__codelineno-2-53"></a>    <span class="c1"># any return stuff</span>
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="__codelineno-2-54"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Contact works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-55" name="__codelineno-2-55" href="__codelineno-2-55"></a>
+<a id="__codelineno-2-56" name="__codelineno-2-56" href="__codelineno-2-56"></a>
+<a id="__codelineno-2-57" name="__codelineno-2-57" href="__codelineno-2-57"></a><span class="k">def</span> <span class="nf">collaborations</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-58" name="__codelineno-2-58" href="__codelineno-2-58"></a>    <span class="c1"># Other code</span>
+<a id="__codelineno-2-59" name="__codelineno-2-59" href="__codelineno-2-59"></a>    <span class="o">...</span>
+<a id="__codelineno-2-60" name="__codelineno-2-60" href="__codelineno-2-60"></a>    <span class="n">node6</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-2-61" name="__codelineno-2-61" href="__codelineno-2-61"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">collaborations</span><span class="p">),</span>
+<a id="__codelineno-2-62" name="__codelineno-2-62" href="__codelineno-2-62"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Collaborations&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-63" name="__codelineno-2-63" href="__codelineno-2-63"></a>    <span class="p">)</span>
+<a id="__codelineno-2-64" name="__codelineno-2-64" href="__codelineno-2-64"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
+<a id="__codelineno-2-65" name="__codelineno-2-65" href="__codelineno-2-65"></a>        <span class="n">node6</span>
+<a id="__codelineno-2-66" name="__codelineno-2-66" href="__codelineno-2-66"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
+<a id="__codelineno-2-67" name="__codelineno-2-67" href="__codelineno-2-67"></a>
+<a id="__codelineno-2-68" name="__codelineno-2-68" href="__codelineno-2-68"></a>    <span class="c1"># any return stuff</span>
+<a id="__codelineno-2-69" name="__codelineno-2-69" href="__codelineno-2-69"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Collaborations works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-70" name="__codelineno-2-70" href="__codelineno-2-70"></a>
+<a id="__codelineno-2-71" name="__codelineno-2-71" href="__codelineno-2-71"></a>
+<a id="__codelineno-2-72" name="__codelineno-2-72" href="__codelineno-2-72"></a><span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-73" name="__codelineno-2-73" href="__codelineno-2-73"></a>    <span class="c1"># Other code</span>
+<a id="__codelineno-2-74" name="__codelineno-2-74" href="__codelineno-2-74"></a>    <span class="o">...</span>
+<a id="__codelineno-2-75" name="__codelineno-2-75" href="__codelineno-2-75"></a>    <span class="n">node5</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-2-76" name="__codelineno-2-76" href="__codelineno-2-76"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/events&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">events</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Events&quot;</span>
+<a id="__codelineno-2-77" name="__codelineno-2-77" href="__codelineno-2-77"></a>    <span class="p">)</span>
+<a id="__codelineno-2-78" name="__codelineno-2-78" href="__codelineno-2-78"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
+<a id="__codelineno-2-79" name="__codelineno-2-79" href="__codelineno-2-79"></a>        <span class="n">node5</span>
+<a id="__codelineno-2-80" name="__codelineno-2-80" href="__codelineno-2-80"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
+<a id="__codelineno-2-81" name="__codelineno-2-81" href="__codelineno-2-81"></a>
+<a id="__codelineno-2-82" name="__codelineno-2-82" href="__codelineno-2-82"></a>    <span class="c1"># any return stuff</span>
+<a id="__codelineno-2-83" name="__codelineno-2-83" href="__codelineno-2-83"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Events works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-84" name="__codelineno-2-84" href="__codelineno-2-84"></a>
+<a id="__codelineno-2-85" name="__codelineno-2-85" href="__codelineno-2-85"></a>
+<a id="__codelineno-2-86" name="__codelineno-2-86" href="__codelineno-2-86"></a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-87" name="__codelineno-2-87" href="__codelineno-2-87"></a>    <span class="n">node1</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-2-88" name="__codelineno-2-88" href="__codelineno-2-88"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/home1&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">home</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Home&quot;</span>
+<a id="__codelineno-2-89" name="__codelineno-2-89" href="__codelineno-2-89"></a>    <span class="p">)</span>
+<a id="__codelineno-2-90" name="__codelineno-2-90" href="__codelineno-2-90"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span>
+<a id="__codelineno-2-91" name="__codelineno-2-91" href="__codelineno-2-91"></a>        <span class="n">node1</span>
+<a id="__codelineno-2-92" name="__codelineno-2-92" href="__codelineno-2-92"></a>    <span class="p">)</span>  <span class="c1"># Add the function to the graph corresponding to the metricman object</span>
+<a id="__codelineno-2-93" name="__codelineno-2-93" href="__codelineno-2-93"></a>
+<a id="__codelineno-2-94" name="__codelineno-2-94" href="__codelineno-2-94"></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Home works!&lt;/h1&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-95" name="__codelineno-2-95" href="__codelineno-2-95"></a>
+<a id="__codelineno-2-96" name="__codelineno-2-96" href="__codelineno-2-96"></a>
+<a id="__codelineno-2-97" name="__codelineno-2-97" href="__codelineno-2-97"></a><span class="c1"># The methods below won&#39;t be added for metrics</span>
+<a id="__codelineno-2-98" name="__codelineno-2-98" href="__codelineno-2-98"></a>
+<a id="__codelineno-2-99" name="__codelineno-2-99" href="__codelineno-2-99"></a>
+<a id="__codelineno-2-100" name="__codelineno-2-100" href="__codelineno-2-100"></a><span class="k">def</span> <span class="nf">someMethod</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-101" name="__codelineno-2-101" href="__codelineno-2-101"></a>    <span class="o">...</span>
+<a id="__codelineno-2-102" name="__codelineno-2-102" href="__codelineno-2-102"></a>
+<a id="__codelineno-2-103" name="__codelineno-2-103" href="__codelineno-2-103"></a>
+<a id="__codelineno-2-104" name="__codelineno-2-104" href="__codelineno-2-104"></a><span class="k">class</span> <span class="nc">someClass</span><span class="p">:</span>
+<a id="__codelineno-2-105" name="__codelineno-2-105" href="__codelineno-2-105"></a>    <span class="o">...</span>
+<a id="__codelineno-2-106" name="__codelineno-2-106" href="__codelineno-2-106"></a>
+<a id="__codelineno-2-107" name="__codelineno-2-107" href="__codelineno-2-107"></a>
+<a id="__codelineno-2-108" name="__codelineno-2-108" href="__codelineno-2-108"></a><span class="k">def</span> <span class="nf">anotherMethod</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-109" name="__codelineno-2-109" href="__codelineno-2-109"></a>    <span class="o">...</span>
+<a id="__codelineno-2-110" name="__codelineno-2-110" href="__codelineno-2-110"></a>
+<a id="__codelineno-2-111" name="__codelineno-2-111" href="__codelineno-2-111"></a>
+<a id="__codelineno-2-112" name="__codelineno-2-112" href="__codelineno-2-112"></a><span class="k">def</span> <span class="nf">aThirdMethod</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-2-113" name="__codelineno-2-113" href="__codelineno-2-113"></a>    <span class="o">...</span>
 </code></pre></div>
 <p>Although I haven't tested it yet, owing to the nature of the <code>metricman</code> object, I think it can be used in the top level <code>urls.py</code> for being used over the entire project - one that has multiple Django Apps into it.</p>
 <p>Also, do check out <strong><a href="https://github.com/anuran-roy/pymetrix-dashboard-django.git">Pymetrix Django Dashboard</a></strong></p>
 <h3 id="2-using-with-fastapi">2. Using with FastAPI</h3>
 <p><strong><a href="https://fastapi.tiangolo.com/">FastAPI</a></strong> is a micro web framework built on top of Pydantic and Starlette. It claims to be the fastest Pythonic web framework out there for building APIs, and adheres to the OpenAPI standards. It provides two UIs for testing the APIs made through it - Redoc and SwaggerUI. It also provides a lot of functionalities out of the box, such as asynchronous calls, which speeds up API calls, sometimes tremendously. It can be used both with ASGI and WSGI.</p>
 <p>Integrating Pymetrix with FastAPI is as easy as it is in Django, if not easier.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">status</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">pymetrix</span> <span class="kn">import</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">,</span> <span class="n">flow</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="__codelineno-5-5"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="__codelineno-5-8"></a><span class="n">metricman</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">Metrics</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="__codelineno-5-10"></a>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="__codelineno-5-11"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/home&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="__codelineno-5-12"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="__codelineno-5-13"></a>    <span class="n">node1</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="__codelineno-5-14"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">home</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Home&quot;</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="__codelineno-5-15"></a>    <span class="p">)</span>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="__codelineno-5-16"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node1</span><span class="p">)</span>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="__codelineno-5-17"></a>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="__codelineno-5-18"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the home page&quot;</span><span class="p">}</span>
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="__codelineno-5-19"></a>
-<a id="__codelineno-5-20" name="__codelineno-5-20" href="__codelineno-5-20"></a>
-<a id="__codelineno-5-21" name="__codelineno-5-21" href="__codelineno-5-21"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
-<a id="__codelineno-5-22" name="__codelineno-5-22" href="__codelineno-5-22"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">contact</span><span class="p">():</span>
-<a id="__codelineno-5-23" name="__codelineno-5-23" href="__codelineno-5-23"></a>    <span class="n">node2</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-5-24" name="__codelineno-5-24" href="__codelineno-5-24"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">contact</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Contact&quot;</span>
-<a id="__codelineno-5-25" name="__codelineno-5-25" href="__codelineno-5-25"></a>    <span class="p">)</span>
-<a id="__codelineno-5-26" name="__codelineno-5-26" href="__codelineno-5-26"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
-<a id="__codelineno-5-27" name="__codelineno-5-27" href="__codelineno-5-27"></a>
-<a id="__codelineno-5-28" name="__codelineno-5-28" href="__codelineno-5-28"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the contact page&quot;</span><span class="p">}</span>
-<a id="__codelineno-5-29" name="__codelineno-5-29" href="__codelineno-5-29"></a>
-<a id="__codelineno-5-30" name="__codelineno-5-30" href="__codelineno-5-30"></a>
-<a id="__codelineno-5-31" name="__codelineno-5-31" href="__codelineno-5-31"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
-<a id="__codelineno-5-32" name="__codelineno-5-32" href="__codelineno-5-32"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">collaborations</span><span class="p">():</span>
-<a id="__codelineno-5-33" name="__codelineno-5-33" href="__codelineno-5-33"></a>    <span class="n">node3</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-5-34" name="__codelineno-5-34" href="__codelineno-5-34"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">collaborations</span><span class="p">),</span>
-<a id="__codelineno-5-35" name="__codelineno-5-35" href="__codelineno-5-35"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Collaborations&quot;</span><span class="p">,</span>
-<a id="__codelineno-5-36" name="__codelineno-5-36" href="__codelineno-5-36"></a>    <span class="p">)</span>
-<a id="__codelineno-5-37" name="__codelineno-5-37" href="__codelineno-5-37"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node3</span><span class="p">)</span>
-<a id="__codelineno-5-38" name="__codelineno-5-38" href="__codelineno-5-38"></a>
-<a id="__codelineno-5-39" name="__codelineno-5-39" href="__codelineno-5-39"></a>    <span class="k">return</span> <span class="p">{</span>
-<a id="__codelineno-5-40" name="__codelineno-5-40" href="__codelineno-5-40"></a>        <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span>
-<a id="__codelineno-5-41" name="__codelineno-5-41" href="__codelineno-5-41"></a>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the collaborations page&quot;</span><span class="p">,</span>
-<a id="__codelineno-5-42" name="__codelineno-5-42" href="__codelineno-5-42"></a>    <span class="p">}</span>
-<a id="__codelineno-5-43" name="__codelineno-5-43" href="__codelineno-5-43"></a>
-<a id="__codelineno-5-44" name="__codelineno-5-44" href="__codelineno-5-44"></a>
-<a id="__codelineno-5-45" name="__codelineno-5-45" href="__codelineno-5-45"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/events&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
-<a id="__codelineno-5-46" name="__codelineno-5-46" href="__codelineno-5-46"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">events</span><span class="p">():</span>
-<a id="__codelineno-5-47" name="__codelineno-5-47" href="__codelineno-5-47"></a>    <span class="n">node4</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-5-48" name="__codelineno-5-48" href="__codelineno-5-48"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/events&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">events</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Events&quot;</span>
-<a id="__codelineno-5-49" name="__codelineno-5-49" href="__codelineno-5-49"></a>    <span class="p">)</span>
-<a id="__codelineno-5-50" name="__codelineno-5-50" href="__codelineno-5-50"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node4</span><span class="p">)</span>
-<a id="__codelineno-5-51" name="__codelineno-5-51" href="__codelineno-5-51"></a>
-<a id="__codelineno-5-52" name="__codelineno-5-52" href="__codelineno-5-52"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the events page&quot;</span><span class="p">}</span>
-<a id="__codelineno-5-53" name="__codelineno-5-53" href="__codelineno-5-53"></a>
-<a id="__codelineno-5-54" name="__codelineno-5-54" href="__codelineno-5-54"></a>
-<a id="__codelineno-5-55" name="__codelineno-5-55" href="__codelineno-5-55"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/blog&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
-<a id="__codelineno-5-56" name="__codelineno-5-56" href="__codelineno-5-56"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">blog</span><span class="p">():</span>
-<a id="__codelineno-5-57" name="__codelineno-5-57" href="__codelineno-5-57"></a>    <span class="n">node5</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-5-58" name="__codelineno-5-58" href="__codelineno-5-58"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/blog&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Blog&quot;</span>
-<a id="__codelineno-5-59" name="__codelineno-5-59" href="__codelineno-5-59"></a>    <span class="p">)</span>
-<a id="__codelineno-5-60" name="__codelineno-5-60" href="__codelineno-5-60"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node5</span><span class="p">)</span>
-<a id="__codelineno-5-61" name="__codelineno-5-61" href="__codelineno-5-61"></a>
-<a id="__codelineno-5-62" name="__codelineno-5-62" href="__codelineno-5-62"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the blog page&quot;</span><span class="p">}</span>
-<a id="__codelineno-5-63" name="__codelineno-5-63" href="__codelineno-5-63"></a>
-<a id="__codelineno-5-64" name="__codelineno-5-64" href="__codelineno-5-64"></a>
-<a id="__codelineno-5-65" name="__codelineno-5-65" href="__codelineno-5-65"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
-<a id="__codelineno-5-66" name="__codelineno-5-66" href="__codelineno-5-66"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">about</span><span class="p">():</span>
-<a id="__codelineno-5-67" name="__codelineno-5-67" href="__codelineno-5-67"></a>    <span class="n">node6</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-5-68" name="__codelineno-5-68" href="__codelineno-5-68"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">about</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;About&quot;</span>
-<a id="__codelineno-5-69" name="__codelineno-5-69" href="__codelineno-5-69"></a>    <span class="p">)</span>
-<a id="__codelineno-5-70" name="__codelineno-5-70" href="__codelineno-5-70"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node6</span><span class="p">)</span>
-<a id="__codelineno-5-71" name="__codelineno-5-71" href="__codelineno-5-71"></a>
-<a id="__codelineno-5-72" name="__codelineno-5-72" href="__codelineno-5-72"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the about page&quot;</span><span class="p">}</span>
-<a id="__codelineno-5-73" name="__codelineno-5-73" href="__codelineno-5-73"></a>
-<a id="__codelineno-5-74" name="__codelineno-5-74" href="__codelineno-5-74"></a>
-<a id="__codelineno-5-75" name="__codelineno-5-75" href="__codelineno-5-75"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/statistics&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
-<a id="__codelineno-5-76" name="__codelineno-5-76" href="__codelineno-5-76"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">get_statistics</span><span class="p">():</span>
-<a id="__codelineno-5-77" name="__codelineno-5-77" href="__codelineno-5-77"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">metricman</span><span class="o">.</span><span class="n">aggregate</span><span class="p">()}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">status</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">pymetrix</span> <span class="kn">import</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">,</span> <span class="n">flow</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="__codelineno-3-3"></a><span class="kn">from</span> <span class="nn">fastapi.responses</span> <span class="kn">import</span> <span class="n">ORJSONResponse</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="__codelineno-3-5"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="__codelineno-3-8"></a><span class="n">metricman</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">Metrics</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="__codelineno-3-11"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/home&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">ORJSONResponse</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="__codelineno-3-12"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="__codelineno-3-13"></a>    <span class="n">node1</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="__codelineno-3-14"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">home</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Home&quot;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="__codelineno-3-15"></a>    <span class="p">)</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="__codelineno-3-16"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node1</span><span class="p">)</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="__codelineno-3-18"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the home page&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="__codelineno-3-19"></a>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="__codelineno-3-21"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">ORJSONResponse</span><span class="p">)</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="__codelineno-3-22"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">contact</span><span class="p">():</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="__codelineno-3-23"></a>    <span class="n">node2</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="__codelineno-3-24"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">contact</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Contact&quot;</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="__codelineno-3-25"></a>    <span class="p">)</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="__codelineno-3-26"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="__codelineno-3-27"></a>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="__codelineno-3-28"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the contact page&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="__codelineno-3-29"></a>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="__codelineno-3-30"></a>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="__codelineno-3-31"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">ORJSONResponse</span><span class="p">)</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="__codelineno-3-32"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">collaborations</span><span class="p">():</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="__codelineno-3-33"></a>    <span class="n">node3</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="__codelineno-3-34"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">collaborations</span><span class="p">),</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="__codelineno-3-35"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Collaborations&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="__codelineno-3-36"></a>    <span class="p">)</span>
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="__codelineno-3-37"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node3</span><span class="p">)</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="__codelineno-3-38"></a>
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="__codelineno-3-39"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="__codelineno-3-40"></a>        <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span>
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="__codelineno-3-41"></a>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the collaborations page&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="__codelineno-3-42"></a>    <span class="p">}</span>
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="__codelineno-3-43"></a>
+<a id="__codelineno-3-44" name="__codelineno-3-44" href="__codelineno-3-44"></a>
+<a id="__codelineno-3-45" name="__codelineno-3-45" href="__codelineno-3-45"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/events&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">ORJSONResponse</span><span class="p">)</span>
+<a id="__codelineno-3-46" name="__codelineno-3-46" href="__codelineno-3-46"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">events</span><span class="p">():</span>
+<a id="__codelineno-3-47" name="__codelineno-3-47" href="__codelineno-3-47"></a>    <span class="n">node4</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-3-48" name="__codelineno-3-48" href="__codelineno-3-48"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/events&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">events</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Events&quot;</span>
+<a id="__codelineno-3-49" name="__codelineno-3-49" href="__codelineno-3-49"></a>    <span class="p">)</span>
+<a id="__codelineno-3-50" name="__codelineno-3-50" href="__codelineno-3-50"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node4</span><span class="p">)</span>
+<a id="__codelineno-3-51" name="__codelineno-3-51" href="__codelineno-3-51"></a>
+<a id="__codelineno-3-52" name="__codelineno-3-52" href="__codelineno-3-52"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the events page&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-53" name="__codelineno-3-53" href="__codelineno-3-53"></a>
+<a id="__codelineno-3-54" name="__codelineno-3-54" href="__codelineno-3-54"></a>
+<a id="__codelineno-3-55" name="__codelineno-3-55" href="__codelineno-3-55"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/blog&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">ORJSONResponse</span><span class="p">)</span>
+<a id="__codelineno-3-56" name="__codelineno-3-56" href="__codelineno-3-56"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">blog</span><span class="p">():</span>
+<a id="__codelineno-3-57" name="__codelineno-3-57" href="__codelineno-3-57"></a>    <span class="n">node5</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-3-58" name="__codelineno-3-58" href="__codelineno-3-58"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/blog&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Blog&quot;</span>
+<a id="__codelineno-3-59" name="__codelineno-3-59" href="__codelineno-3-59"></a>    <span class="p">)</span>
+<a id="__codelineno-3-60" name="__codelineno-3-60" href="__codelineno-3-60"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node5</span><span class="p">)</span>
+<a id="__codelineno-3-61" name="__codelineno-3-61" href="__codelineno-3-61"></a>
+<a id="__codelineno-3-62" name="__codelineno-3-62" href="__codelineno-3-62"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the blog page&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-63" name="__codelineno-3-63" href="__codelineno-3-63"></a>
+<a id="__codelineno-3-64" name="__codelineno-3-64" href="__codelineno-3-64"></a>
+<a id="__codelineno-3-65" name="__codelineno-3-65" href="__codelineno-3-65"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">ORJSONResponse</span><span class="p">)</span>
+<a id="__codelineno-3-66" name="__codelineno-3-66" href="__codelineno-3-66"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">about</span><span class="p">():</span>
+<a id="__codelineno-3-67" name="__codelineno-3-67" href="__codelineno-3-67"></a>    <span class="n">node6</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-3-68" name="__codelineno-3-68" href="__codelineno-3-68"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">about</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;About&quot;</span>
+<a id="__codelineno-3-69" name="__codelineno-3-69" href="__codelineno-3-69"></a>    <span class="p">)</span>
+<a id="__codelineno-3-70" name="__codelineno-3-70" href="__codelineno-3-70"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node6</span><span class="p">)</span>
+<a id="__codelineno-3-71" name="__codelineno-3-71" href="__codelineno-3-71"></a>
+<a id="__codelineno-3-72" name="__codelineno-3-72" href="__codelineno-3-72"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the about page&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-73" name="__codelineno-3-73" href="__codelineno-3-73"></a>
+<a id="__codelineno-3-74" name="__codelineno-3-74" href="__codelineno-3-74"></a>
+<a id="__codelineno-3-75" name="__codelineno-3-75" href="__codelineno-3-75"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/statistics&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">ORJSONResponse</span><span class="p">)</span>
+<a id="__codelineno-3-76" name="__codelineno-3-76" href="__codelineno-3-76"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">get_statistics</span><span class="p">():</span>
+<a id="__codelineno-3-77" name="__codelineno-3-77" href="__codelineno-3-77"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">metricman</span><span class="o">.</span><span class="n">aggregate</span><span class="p">()}</span>
 </code></pre></div>
 <p>Now we start the <code>uvicorn</code> server using:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="__codelineno-6-1"></a>uvicorn main:app --port <span class="m">8000</span> --reload
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="__codelineno-4-1"></a>uvicorn main:app --port <span class="m">8000</span> --reload
 </code></pre></div>
 <p>Now going to <code>localhost:8000/statistics</code> will give you the aggregate hits on each endpoint.</p>
+<p>Also, here we are serializing the data <a href="#orjson-note">using orjson, instead of regular JSON</a></p>
 <p>Just like the case with Django, you can initialize a Pymetrix object in the main.py file and then import into other scripts from there, if you want a centralized view. But you're also free to take a modular approach with your project by initializing the Pymetrix objects within each module - your skills are your limit.</p>
 <h3 id="3-using-with-starlite">3. Using with Starlite</h3>
 <p><strong><a href="https://goldziher.github.io/starlite/">Starlite</a></strong> is the new challenger in town for Web API frameworks. It's similar to FastAPI in the aspect that it's based on Starlette and Pydantic. But it has a fundamental philosophical difference - Starlite is opinionated, while FastAPI is not. </p>
@@ -743,81 +764,84 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 <p>The intention behind Starlite was to create a higher level opinionated API framework. I placed opinionated in bold because in my view, being opinionated regarding how certain things should be done and shouldn’t be done, and establishing best practices, is one of the most important things a framework can do.</p>
 </blockquote>
 <p>So let's see how Pymetrix works with Starlite:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">starlite</span> <span class="kn">import</span> <span class="n">Starlite</span><span class="p">,</span> <span class="n">get</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="__codelineno-7-2"></a><span class="kn">from</span> <span class="nn">pymetrix</span> <span class="kn">import</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">,</span> <span class="n">flow</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="__codelineno-7-3"></a><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="__codelineno-7-5"></a><span class="n">metricman</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">Metrics</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="__codelineno-7-7"></a>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="__codelineno-7-8"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="__codelineno-7-9"></a><span class="k">def</span> <span class="nf">home</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="__codelineno-7-10"></a>    <span class="n">node1</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="__codelineno-7-11"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">home</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Home&quot;</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="__codelineno-7-12"></a>    <span class="p">)</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="__codelineno-7-13"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node1</span><span class="p">)</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="__codelineno-7-14"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Home Page Works&quot;</span><span class="p">}</span>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="__codelineno-7-15"></a>
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="__codelineno-7-16"></a>
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="__codelineno-7-17"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="__codelineno-7-18"></a><span class="k">def</span> <span class="nf">contact</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="__codelineno-7-19"></a>    <span class="n">node2</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="__codelineno-7-20"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">contact</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Contact&quot;</span>
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="__codelineno-7-21"></a>    <span class="p">)</span>
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="__codelineno-7-22"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="__codelineno-7-23"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Contact Page Works&quot;</span><span class="p">}</span>
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="__codelineno-7-24"></a>
-<a id="__codelineno-7-25" name="__codelineno-7-25" href="__codelineno-7-25"></a>
-<a id="__codelineno-7-26" name="__codelineno-7-26" href="__codelineno-7-26"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-27" name="__codelineno-7-27" href="__codelineno-7-27"></a><span class="k">def</span> <span class="nf">collaborations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<a id="__codelineno-7-28" name="__codelineno-7-28" href="__codelineno-7-28"></a>    <span class="n">node3</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-7-29" name="__codelineno-7-29" href="__codelineno-7-29"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">collaborations</span><span class="p">),</span>
-<a id="__codelineno-7-30" name="__codelineno-7-30" href="__codelineno-7-30"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Collaborations&quot;</span><span class="p">,</span>
-<a id="__codelineno-7-31" name="__codelineno-7-31" href="__codelineno-7-31"></a>    <span class="p">)</span>
-<a id="__codelineno-7-32" name="__codelineno-7-32" href="__codelineno-7-32"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node3</span><span class="p">)</span>
-<a id="__codelineno-7-33" name="__codelineno-7-33" href="__codelineno-7-33"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Collaborations Page Works&quot;</span><span class="p">}</span>
-<a id="__codelineno-7-34" name="__codelineno-7-34" href="__codelineno-7-34"></a>
-<a id="__codelineno-7-35" name="__codelineno-7-35" href="__codelineno-7-35"></a>
-<a id="__codelineno-7-36" name="__codelineno-7-36" href="__codelineno-7-36"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/events&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-37" name="__codelineno-7-37" href="__codelineno-7-37"></a><span class="k">def</span> <span class="nf">events</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<a id="__codelineno-7-38" name="__codelineno-7-38" href="__codelineno-7-38"></a>    <span class="n">node4</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-7-39" name="__codelineno-7-39" href="__codelineno-7-39"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/events&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">events</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Events&quot;</span>
-<a id="__codelineno-7-40" name="__codelineno-7-40" href="__codelineno-7-40"></a>    <span class="p">)</span>
-<a id="__codelineno-7-41" name="__codelineno-7-41" href="__codelineno-7-41"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node4</span><span class="p">)</span>
-<a id="__codelineno-7-42" name="__codelineno-7-42" href="__codelineno-7-42"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Events Page Works&quot;</span><span class="p">}</span>
-<a id="__codelineno-7-43" name="__codelineno-7-43" href="__codelineno-7-43"></a>
-<a id="__codelineno-7-44" name="__codelineno-7-44" href="__codelineno-7-44"></a>
-<a id="__codelineno-7-45" name="__codelineno-7-45" href="__codelineno-7-45"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/blog&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-46" name="__codelineno-7-46" href="__codelineno-7-46"></a><span class="k">def</span> <span class="nf">blog</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<a id="__codelineno-7-47" name="__codelineno-7-47" href="__codelineno-7-47"></a>    <span class="n">node5</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-7-48" name="__codelineno-7-48" href="__codelineno-7-48"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/blog&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Blog&quot;</span>
-<a id="__codelineno-7-49" name="__codelineno-7-49" href="__codelineno-7-49"></a>    <span class="p">)</span>
-<a id="__codelineno-7-50" name="__codelineno-7-50" href="__codelineno-7-50"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node5</span><span class="p">)</span>
-<a id="__codelineno-7-51" name="__codelineno-7-51" href="__codelineno-7-51"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Blog Page Works&quot;</span><span class="p">}</span>
-<a id="__codelineno-7-52" name="__codelineno-7-52" href="__codelineno-7-52"></a>
-<a id="__codelineno-7-53" name="__codelineno-7-53" href="__codelineno-7-53"></a>
-<a id="__codelineno-7-54" name="__codelineno-7-54" href="__codelineno-7-54"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-55" name="__codelineno-7-55" href="__codelineno-7-55"></a><span class="k">def</span> <span class="nf">about</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<a id="__codelineno-7-56" name="__codelineno-7-56" href="__codelineno-7-56"></a>    <span class="n">node6</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-7-57" name="__codelineno-7-57" href="__codelineno-7-57"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">about</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;About&quot;</span>
-<a id="__codelineno-7-58" name="__codelineno-7-58" href="__codelineno-7-58"></a>    <span class="p">)</span>
-<a id="__codelineno-7-59" name="__codelineno-7-59" href="__codelineno-7-59"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node6</span><span class="p">)</span>
-<a id="__codelineno-7-60" name="__codelineno-7-60" href="__codelineno-7-60"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;About Page Works&quot;</span><span class="p">}</span>
-<a id="__codelineno-7-61" name="__codelineno-7-61" href="__codelineno-7-61"></a>
-<a id="__codelineno-7-62" name="__codelineno-7-62" href="__codelineno-7-62"></a>
-<a id="__codelineno-7-63" name="__codelineno-7-63" href="__codelineno-7-63"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/statistics&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-64" name="__codelineno-7-64" href="__codelineno-7-64"></a><span class="k">def</span> <span class="nf">statistics</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<a id="__codelineno-7-65" name="__codelineno-7-65" href="__codelineno-7-65"></a>    <span class="n">node2</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
-<a id="__codelineno-7-66" name="__codelineno-7-66" href="__codelineno-7-66"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">contact</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Contact&quot;</span>
-<a id="__codelineno-7-67" name="__codelineno-7-67" href="__codelineno-7-67"></a>    <span class="p">)</span>
-<a id="__codelineno-7-68" name="__codelineno-7-68" href="__codelineno-7-68"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
-<a id="__codelineno-7-69" name="__codelineno-7-69" href="__codelineno-7-69"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">metricman</span><span class="o">.</span><span class="n">time_series</span><span class="p">()}</span>
-<a id="__codelineno-7-70" name="__codelineno-7-70" href="__codelineno-7-70"></a>
-<a id="__codelineno-7-71" name="__codelineno-7-71" href="__codelineno-7-71"></a>
-<a id="__codelineno-7-72" name="__codelineno-7-72" href="__codelineno-7-72"></a><span class="n">app</span> <span class="o">=</span> <span class="n">Starlite</span><span class="p">(</span>
-<a id="__codelineno-7-73" name="__codelineno-7-73" href="__codelineno-7-73"></a>    <span class="n">route_handlers</span><span class="o">=</span><span class="p">[</span><span class="n">home</span><span class="p">,</span> <span class="n">contact</span><span class="p">,</span> <span class="n">collaborations</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">blog</span><span class="p">,</span> <span class="n">about</span><span class="p">,</span> <span class="n">statistics</span><span class="p">]</span>
-<a id="__codelineno-7-74" name="__codelineno-7-74" href="__codelineno-7-74"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">starlite</span> <span class="kn">import</span> <span class="n">Starlite</span><span class="p">,</span> <span class="n">get</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">pymetrix</span> <span class="kn">import</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">,</span> <span class="n">flow</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="__codelineno-5-3"></a><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="__codelineno-5-5"></a><span class="n">metricman</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">Metrics</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="__codelineno-5-8"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="__codelineno-5-9"></a><span class="k">def</span> <span class="nf">home</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="__codelineno-5-10"></a>    <span class="n">node1</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="__codelineno-5-11"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">home</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Home&quot;</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="__codelineno-5-12"></a>    <span class="p">)</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="__codelineno-5-13"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node1</span><span class="p">)</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="__codelineno-5-14"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Home Page Works&quot;</span><span class="p">}</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="__codelineno-5-17"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="__codelineno-5-18"></a><span class="k">def</span> <span class="nf">contact</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="__codelineno-5-19"></a>    <span class="n">node2</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="__codelineno-5-20"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">contact</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Contact&quot;</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="__codelineno-5-21"></a>    <span class="p">)</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="__codelineno-5-22"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="__codelineno-5-23"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Contact Page Works&quot;</span><span class="p">}</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="__codelineno-5-24"></a>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="__codelineno-5-25"></a>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="__codelineno-5-26"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="__codelineno-5-27"></a><span class="k">def</span> <span class="nf">collaborations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="__codelineno-5-28"></a>    <span class="n">node3</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="__codelineno-5-29"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/collaborations&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">collaborations</span><span class="p">),</span>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="__codelineno-5-30"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Collaborations&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="__codelineno-5-31"></a>    <span class="p">)</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="__codelineno-5-32"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node3</span><span class="p">)</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="__codelineno-5-33"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Collaborations Page Works&quot;</span><span class="p">}</span>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="__codelineno-5-34"></a>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="__codelineno-5-35"></a>
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="__codelineno-5-36"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/events&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="__codelineno-5-37"></a><span class="k">def</span> <span class="nf">events</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="__codelineno-5-38"></a>    <span class="n">node4</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-5-39" name="__codelineno-5-39" href="__codelineno-5-39"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/events&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">events</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Events&quot;</span>
+<a id="__codelineno-5-40" name="__codelineno-5-40" href="__codelineno-5-40"></a>    <span class="p">)</span>
+<a id="__codelineno-5-41" name="__codelineno-5-41" href="__codelineno-5-41"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node4</span><span class="p">)</span>
+<a id="__codelineno-5-42" name="__codelineno-5-42" href="__codelineno-5-42"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Events Page Works&quot;</span><span class="p">}</span>
+<a id="__codelineno-5-43" name="__codelineno-5-43" href="__codelineno-5-43"></a>
+<a id="__codelineno-5-44" name="__codelineno-5-44" href="__codelineno-5-44"></a>
+<a id="__codelineno-5-45" name="__codelineno-5-45" href="__codelineno-5-45"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/blog&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-46" name="__codelineno-5-46" href="__codelineno-5-46"></a><span class="k">def</span> <span class="nf">blog</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<a id="__codelineno-5-47" name="__codelineno-5-47" href="__codelineno-5-47"></a>    <span class="n">node5</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-5-48" name="__codelineno-5-48" href="__codelineno-5-48"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/blog&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Blog&quot;</span>
+<a id="__codelineno-5-49" name="__codelineno-5-49" href="__codelineno-5-49"></a>    <span class="p">)</span>
+<a id="__codelineno-5-50" name="__codelineno-5-50" href="__codelineno-5-50"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node5</span><span class="p">)</span>
+<a id="__codelineno-5-51" name="__codelineno-5-51" href="__codelineno-5-51"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Blog Page Works&quot;</span><span class="p">}</span>
+<a id="__codelineno-5-52" name="__codelineno-5-52" href="__codelineno-5-52"></a>
+<a id="__codelineno-5-53" name="__codelineno-5-53" href="__codelineno-5-53"></a>
+<a id="__codelineno-5-54" name="__codelineno-5-54" href="__codelineno-5-54"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-55" name="__codelineno-5-55" href="__codelineno-5-55"></a><span class="k">def</span> <span class="nf">about</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<a id="__codelineno-5-56" name="__codelineno-5-56" href="__codelineno-5-56"></a>    <span class="n">node6</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-5-57" name="__codelineno-5-57" href="__codelineno-5-57"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">about</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;About&quot;</span>
+<a id="__codelineno-5-58" name="__codelineno-5-58" href="__codelineno-5-58"></a>    <span class="p">)</span>
+<a id="__codelineno-5-59" name="__codelineno-5-59" href="__codelineno-5-59"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node6</span><span class="p">)</span>
+<a id="__codelineno-5-60" name="__codelineno-5-60" href="__codelineno-5-60"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;About Page Works&quot;</span><span class="p">}</span>
+<a id="__codelineno-5-61" name="__codelineno-5-61" href="__codelineno-5-61"></a>
+<a id="__codelineno-5-62" name="__codelineno-5-62" href="__codelineno-5-62"></a>
+<a id="__codelineno-5-63" name="__codelineno-5-63" href="__codelineno-5-63"></a><span class="nd">@get</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/statistics&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-64" name="__codelineno-5-64" href="__codelineno-5-64"></a><span class="k">def</span> <span class="nf">statistics</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<a id="__codelineno-5-65" name="__codelineno-5-65" href="__codelineno-5-65"></a>    <span class="n">node2</span><span class="p">:</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNodeType</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">FlowNode</span><span class="p">(</span>
+<a id="__codelineno-5-66" name="__codelineno-5-66" href="__codelineno-5-66"></a>        <span class="n">endpoints</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/contact&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">contact</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Contact&quot;</span>
+<a id="__codelineno-5-67" name="__codelineno-5-67" href="__codelineno-5-67"></a>    <span class="p">)</span>
+<a id="__codelineno-5-68" name="__codelineno-5-68" href="__codelineno-5-68"></a>    <span class="n">metricman</span><span class="o">.</span><span class="n">add_to_analytics</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+<a id="__codelineno-5-69" name="__codelineno-5-69" href="__codelineno-5-69"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">metricman</span><span class="o">.</span><span class="n">time_series</span><span class="p">()}</span>
+<a id="__codelineno-5-70" name="__codelineno-5-70" href="__codelineno-5-70"></a>
+<a id="__codelineno-5-71" name="__codelineno-5-71" href="__codelineno-5-71"></a>
+<a id="__codelineno-5-72" name="__codelineno-5-72" href="__codelineno-5-72"></a><span class="n">app</span> <span class="o">=</span> <span class="n">Starlite</span><span class="p">(</span>
+<a id="__codelineno-5-73" name="__codelineno-5-73" href="__codelineno-5-73"></a>    <span class="n">route_handlers</span><span class="o">=</span><span class="p">[</span><span class="n">home</span><span class="p">,</span> <span class="n">contact</span><span class="p">,</span> <span class="n">collaborations</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">blog</span><span class="p">,</span> <span class="n">about</span><span class="p">,</span> <span class="n">statistics</span><span class="p">]</span>
+<a id="__codelineno-5-74" name="__codelineno-5-74" href="__codelineno-5-74"></a><span class="p">)</span>
 </code></pre></div>
+<p>Do note that Starlite uses the orjson library for its responses by default.</p>
+<h4 id="orjson-note">Orjson Note</h4>
+<p>In <strong><a href="https://pypi.org/project/orjson/">orjson</a></strong>, the response is a JSON byte string and not a object. This dramatically speeds up the serialization process.</p>
 <!-- For looking into what more Pymetrix can do, head to ``tests/flow_test.py``. -->
 
               
