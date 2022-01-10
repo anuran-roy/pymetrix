@@ -186,7 +186,7 @@ class FlowLayer:
         self._nodes: List = []
 
     def addNode(self, node: FlowNodeType, index: int = -1, **kwargs):
-        parent = None if "parent" in kwargs.keys() else None
+        parent = kwargs["parent"] if "parent" in kwargs.keys() else None
         if node._name not in [x._name for x in self._nodes]:
             node._endpoint.hits += 1
             node.called_from += [{"caller": parent, "time": str(datetime.now())}]
