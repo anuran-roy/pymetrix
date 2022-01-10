@@ -37,10 +37,7 @@ class FlowNode:
 
     @parents.setter
     def parents(self, parents):
-        if type(parents) == type([]):
-            self._parents += parents
-        else:
-            self._parents += [parents]
+        self._parents += parents if type(parents) == type([]) else [parents]
 
     @property
     def children(self):
@@ -57,29 +54,27 @@ class FlowNode:
         if settings.VERBOSE:
             print("comesBefore function invoked!Inserted node=\n")
             print(inserted_node)
-        if inserted_node not in self._children:
-            if settings.VERBOSE:
-                print("Branch 1 invoked!")
-            self._children += [inserted_node]
-            inserted_node._parents += [self]
-        else:
+        if inserted_node in self._children:
             raise errors.DuplicateError(
                 what=inserted_node._name, where=f"list of children of {self._name}"
             )
+        if settings.VERBOSE:
+            print("Branch 1 invoked!")
+        self._children += [inserted_node]
+        inserted_node._parents += [self]
 
     def comesAfter(self, inserted_node):
         if settings.VERBOSE:
             print("comesAfter function invoked!Inserted node=\n")
             print(inserted_node)
-        if inserted_node not in self._children:
-            if settings.VERBOSE:
-                print("Branch 1 invoked!")
-            self._parents.append(inserted_node)
-            inserted_node.children.append(self)
-        else:
+        if inserted_node in self._children:
             raise errors.DuplicateError(
                 what=inserted_node._name, where=f"list of children of {self._name}"
             )
+        if settings.VERBOSE:
+            print("Branch 1 invoked!")
+        self._parents.append(inserted_node)
+        inserted_node.children.append(self)
 
     @property
     def serialize(self) -> Dict:
@@ -259,21 +254,17 @@ class FlowLayer:
             else:
                 return None
 
-        if "instance" in k:
-            if type(self) == type(kwargs["instance"]):
-                return self
+        if "instance" in k and type(self) == type(kwargs["instance"]):
+            return self
 
         results = []
-        ct = 1
-        for i in self._nodes:
+        for ct, i in enumerate(self._nodes, start=1):
             if settings.VERBOSE:
                 print(f"\t\t->Searching node {ct}")
             ob = i.search(**kwargs)
 
             if ob is not None:
                 results.append(ob)
-
-            ct += 1
 
         if results == []:
             return None
@@ -311,16 +302,15 @@ class Flow:
 
     # @property
     def addLayer(self, layer: FlowLayerType, **kwargs):
-        if layer not in self._graph:
-            if "index" in kwargs.keys():
-                left = self._graph[: kwargs["index"]]
-                right = self._graph[kwargs["index"] :]
-                left.append(layer)
-                self._graph = left + right
-            else:
-                self._graph.append(layer)
-        else:
+        if layer in self._graph:
             raise errors.DuplicateError(what=layer._name, where=self._name)
+        if "index" in kwargs.keys():
+            left = self._graph[: kwargs["index"]]
+            right = self._graph[kwargs["index"] :]
+            left.append(layer)
+            self._graph = left + right
+        else:
+            self._graph.append(layer)
 
     @property
     def serialize(self) -> Dict:
@@ -367,10 +357,7 @@ class Flow:
 
     def exists(self, **kwargs):
         try:
-            if self.search(**kwargs) is not None:
-                return True
-            else:
-                return False
+            return self.search(**kwargs) is not None
         except Exception:
             return None
 

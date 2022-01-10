@@ -198,7 +198,7 @@ def directed_pyvis(connections: List[Tuple], **kwargs) -> str:
     # graph = nt.html  # .replace("body>", "div>").replace("html>", "div>")
     print("\nMaking Pyvis Network...\n")
 
-    print(str(nt.html))
+    print(nt.html)
     nt.save_graph("nx.html")
 
     return open("nx.html", "r").read()
