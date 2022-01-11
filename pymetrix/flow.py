@@ -4,7 +4,6 @@ from typing import List, Dict, Any, NewType
 from uuid import uuid4
 import json
 
-# import pprint
 from datetime import datetime
 
 
@@ -21,15 +20,7 @@ class FlowNode:
         self.called_from: List = []
 
     def __str__(self):
-        # print(f"Node ID: {self._name}")
-        # print(f"Corresponding Endpoint: {self._endpoint}")
-        # print(f"Parent Nodes: {self._parents}")
-        # print(f"Child Nodes: {self._children}")
-
         return f'"node_id": {self._name}, "endpoint": {self._endpoint}, "parents": {self._parents}, "children": {self._children}'
-
-    # def __repr__(self):
-    #     pass
 
     @property
     def parents(self):
@@ -309,7 +300,6 @@ class Flow:
 
         return nodes_hit_list
 
-    # @property
     def addLayer(self, layer: FlowLayerType, **kwargs):
         if layer not in self._graph:
             if "index" in kwargs.keys():
@@ -344,8 +334,6 @@ class Flow:
 
         return nodes_pairs
 
-    # Search methods:
-
     def search(self, **kwargs):
         if settings.VERBOSE:
             print("Searching at Graph level...")
@@ -361,16 +349,9 @@ class Flow:
         else:
             return results
 
-    # def detect_remove_cycles(self):
-    #     for i in self._graph:
-    #         pass
-
     def exists(self, **kwargs):
         try:
-            if self.search(**kwargs) is not None:
-                return True
-            else:
-                return False
+            return self.search(**kwargs) is not None
         except Exception:
             return None
 

@@ -1,13 +1,3 @@
-# from .endpoints import Endpoint
-# import sys
-# from pathlib import Path
-
-# PACK_BASE = str(Path(__file__).resolve().parent.parent)
-
-# if PACK_BASE in sys.path:
-#     print(sys.path)
-# else:
-#     sys.path.append(PACK_BASE)
 from pymetrix.flow import (
     Flow,
     # FlowNode,
@@ -82,25 +72,17 @@ class Metrics(MetricsBase):
         if layer_query is None:
             self._graph.addLayer(layer_to_add_to)
 
-        if self.last_inserted is None:
-            self.last_inserted = node
-        else:
-            self.last_inserted._children.append(node)
-            self.last_inserted = node
+        if self.last_inserted is not None:
+             self.last_inserted._children.append(node)
+           
+        self.last_inserted = node
 
     def display(self, **kwargs) -> None:
 
         print(f"\n\n{self.id}\n\n")
         # ep = None
         nodes_hit_list: List[Dict] = self._graph.gethits
-        # if 'id' in kwargs.keys():
-        #     for i in self.endpoints:
-        #         if i['id'] == kwargs['id']:
-        #             ep = [i]
-        #             break
-        # else:
-        #     ep = self.endpoints
-
+        
         print("\n\nId:\t\tHits\n")
 
         if "id" in kwargs.keys():
@@ -111,63 +93,20 @@ class Metrics(MetricsBase):
             for i in nodes_hit_list:
                 # print(i)
                 print(f'{i["id"]}\t\t{i["hits"]}')
-        # for i in ep:
-        #     data = i['endpoint'].stats()
-
-        #     for j in data.keys():
-        #         print(f"{j}: {data[j]}", end="\t")
-
-        #     print()
 
     def time_series(self, **kwargs) -> Dict:
-        dct: Dict = {}
+        dct: Dict = {"id": self.id}
 
-        dct["id"] = self.id
-        # print(f"\n\n{self.id}\n\n")
-        # ep = None
         nodes_hit_list: List[Dict] = self._graph.gethits
         dct["nodes"] = nodes_hit_list
-        # if 'id' in kwargs.keys():
-        #     for i in self.endpoints:
-        #         if i['id'] == kwargs['id']:
-        #             ep = [i]
-        #             break
-        # else:
-        #     ep = self.endpoints
-
-        # print("\n\nId:\t\tHits\n")
-
-        # if "id" in kwargs.keys():
-        #     for i in dct["nodes"]:
-        #         if i["id"] == kwargs["id"]:
-        #             return {
-        #                 "id": kwargs["id"],
-        #                 i["id"]: i["hits"]
-        #             }
-        # else:
         return dct
-        # for i in ep:
-        #     data = i['endpoint'].stats()
-
-        #     for j in data.keys():
-        #         print(f"{j}: {data[j]}", end="\t")
-
-        #     print()
 
     def aggregate(self) -> Dict:
         nodes_hit_list: List[Dict] = self._graph.gethits
 
-        endpoints: List[str] = [
+        return [
             {"id": x["id"], "hits": x["hits"]} for x in nodes_hit_list
         ]
-
-        # for i in endpoints:
-        #     agg[i] = 0
-
-        # for i in nodes_hit_list:
-        #     agg[i["id"]] += 1
-
-        return endpoints
 
     def pipeline(self, data: str = "time_series", mode: str = "live", **kwargs) -> List:
         last_var = {"id": None, "hits": None, "time": None}
