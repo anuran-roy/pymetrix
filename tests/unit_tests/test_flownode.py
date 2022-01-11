@@ -1,9 +1,4 @@
 from pymetrix.metrics import Metrics
-
-from pymetrix.endpoints import Endpoint, EndpointType
-
-import pytest
-
 from pymetrix.endpoints import Endpoint, EndpointType
 
 from pymetrix.flow import (

@@ -1,5 +1,3 @@
-import pytest
-
 from pymetrix.endpoints import Endpoint, EndpointType
 
 
