@@ -36,23 +36,31 @@ class TestClass:
         ep1: EndpointType = Endpoint(endpoint="Foo1", id=self.foo1)
         node1: FlowNodeType = FlowNode(ep1, name="Node1")
 
-        assert isinstance(node1.serialize, dict) and [
-            "node_id",
-            "parents",
-            "children",
-            "endpoint",
-        ] == list(node1.serialize.keys())
+        assert (
+            isinstance(node1.serialize, dict)
+            and [
+                "node_id",
+                "parents",
+                "children",
+                "endpoint",
+            ]
+            == list(node1.serialize.keys())
+        )
 
     def test_gethits(self):
         ep1: EndpointType = Endpoint(endpoint="Foo1", id=self.foo1)
         node1: FlowNodeType = FlowNode(ep1, name="Node1")
 
-        assert isinstance(node1.gethits, dict) and [
-            "id",
-            "hits",
-            "time",
-            "callers",
-        ] == list(node1.gethits.keys())
+        assert (
+            isinstance(node1.gethits, dict)
+            and [
+                "id",
+                "hits",
+                "time",
+                "callers",
+            ]
+            == list(node1.gethits.keys())
+        )
 
     def test_visualize(self):
         ep1: EndpointType = Endpoint(endpoint="Foo1", id=self.foo1)

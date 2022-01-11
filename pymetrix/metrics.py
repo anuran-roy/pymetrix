@@ -73,8 +73,8 @@ class Metrics(MetricsBase):
             self._graph.addLayer(layer_to_add_to)
 
         if self.last_inserted is not None:
-             self.last_inserted._children.append(node)
-           
+            self.last_inserted._children.append(node)
+
         self.last_inserted = node
 
     def display(self, **kwargs) -> None:
@@ -82,7 +82,7 @@ class Metrics(MetricsBase):
         print(f"\n\n{self.id}\n\n")
         # ep = None
         nodes_hit_list: List[Dict] = self._graph.gethits
-        
+
         print("\n\nId:\t\tHits\n")
 
         if "id" in kwargs.keys():
@@ -104,9 +104,7 @@ class Metrics(MetricsBase):
     def aggregate(self) -> Dict:
         nodes_hit_list: List[Dict] = self._graph.gethits
 
-        return [
-            {"id": x["id"], "hits": x["hits"]} for x in nodes_hit_list
-        ]
+        return [{"id": x["id"], "hits": x["hits"]} for x in nodes_hit_list]
 
     def pipeline(self, data: str = "time_series", mode: str = "live", **kwargs) -> List:
         last_var = {"id": None, "hits": None, "time": None}
