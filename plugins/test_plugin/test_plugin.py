@@ -15,4 +15,4 @@ if __name__ == "__main__":
     a = HitCounter(DB_URL)
     a.output()
     print(dir(a))
-    print(str(Path(__file__).resolve().parent.parent))
+    print(Path(__file__).resolve().parent.parent)
