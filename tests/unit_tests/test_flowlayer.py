@@ -1,4 +1,3 @@
-from pymetrix.metrics import Metrics
 from pymetrix.endpoints import Endpoint, EndpointType
 
 from pymetrix.flow import (
@@ -6,18 +5,16 @@ from pymetrix.flow import (
     FlowNodeType,
     FlowLayer,
     FlowLayerType,
-    Flow,
-    FlowType,
 )
 
 
-class TestClass:
-    def foo1(self):
-        print("Foo1")
+def foo1():
+    print("Foo1")
 
+class TestClass:
     def test_flowLayer_creation(self):
         l1: FlowLayerType = FlowLayer(label="Layer1")
-        ep1: EndpointType = Endpoint(endpoint="/", id=self.foo1)
+        ep1: EndpointType = Endpoint(endpoint="/", id=foo1)
         obj1: FlowNodeType = FlowNode(ep1, name="Object1")
         l1.addNode(obj1)
 
@@ -25,7 +22,7 @@ class TestClass:
 
     def test_flowLayer_nodes(self):
         l1: FlowLayerType = FlowLayer(label="Layer1")
-        ep1: EndpointType = Endpoint(endpoint="/", id=self.foo1)
+        ep1: EndpointType = Endpoint(endpoint="/", id=foo1)
         obj1: FlowNodeType = FlowNode(ep1, name="Object1")
         l1.addNode(obj1)
 
@@ -33,7 +30,7 @@ class TestClass:
 
     def test_flowLayer_gethits(self):
         l1: FlowLayerType = FlowLayer(label="Layer1")
-        ep1: EndpointType = Endpoint(endpoint="/", id=self.foo1)
+        ep1: EndpointType = Endpoint(endpoint="/", id=foo1)
         obj1: FlowNodeType = FlowNode(ep1, name="Object1")
         l1.addNode(obj1)
 
@@ -41,7 +38,7 @@ class TestClass:
 
     def test_flowLayer_visualize(self):
         l1: FlowLayerType = FlowLayer(label="Layer1")
-        ep1: EndpointType = Endpoint(endpoint="/", id=self.foo1)
+        ep1: EndpointType = Endpoint(endpoint="/", id=foo1)
         obj1: FlowNodeType = FlowNode(ep1, name="Object1")
         l1.addNode(obj1)
 
@@ -49,7 +46,7 @@ class TestClass:
 
     def test_flowLayer_serialize(self):
         l1: FlowLayerType = FlowLayer(label="Layer1")
-        ep1: EndpointType = Endpoint(endpoint="/", id=self.foo1)
+        ep1: EndpointType = Endpoint(endpoint="/", id=foo1)
         obj1: FlowNodeType = FlowNode(ep1, name="Object1")
         l1.addNode(obj1)
 
