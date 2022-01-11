@@ -1,6 +1,7 @@
 from typing import List, Dict, Any, Tuple, NewType
 from datetime import datetime
 
+
 class Plugin:
     def __init__(self) -> None:
         self.nodes_to_monitor: List = []
