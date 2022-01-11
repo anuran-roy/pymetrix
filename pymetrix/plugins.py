@@ -1,54 +1,45 @@
-from pymetrix.flow import FlowNode, FlowNodeType, FlowLayer, FlowLayerType
 from typing import List, Dict, Any, Tuple, NewType
 from datetime import datetime
 
-from .settings import set_path
-
-set_path()
-
-
 class Plugin:
-    def __init__(self):
+    def __init__(self) -> None:
         self.nodes_to_monitor: List = []
         self.layers_to_monitor: List = []
-        self._metadata = {
+        self._metadata: Dict = {
             "plugin": "My awesome plugin",
             "description": "This is my awesome new plugin",
             "added_on": datetime.now(),
         }
 
     @property
-    def nodeAttributes(self):
+    def nodeAttributes(self) -> List:
         return self.nodes_to_monitor[0].__dict__.keys()
 
     @property
-    def layerAttributes(self):
+    def layerAttributes(self) -> List:
         return self.layers_to_monitor[0].__dict__.keys()
 
     @property
     def metadata(self):
         return self._metadata
 
-    def setMetadata(self, metadata_dict):
+    def setMetadata(self, metadata_dict) -> Any:
         pass
 
-    def createSchema(self, details_dict):
+    def createSchema(self, details_dict) -> Any:
         pass
 
-    def addNode(self, node: FlowNodeType):
+    def addNode(self, node: FlowNodeType) -> None:
         self.nodes_to_monitor.append(node)
 
-    def addEntry(self, entry):
+    def addEntry(self, entry) -> Any:
         pass
 
-    def results(self):
+    def results(self) -> Dict:
         return {}
 
 
 PluginType = NewType("PluginType", Plugin)
 
 if __name__ == "__main__":
-    from .settings import set_path
-
-    set_path()
     PluginType = NewType("PluginType", Plugin)

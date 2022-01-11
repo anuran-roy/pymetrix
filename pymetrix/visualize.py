@@ -2,7 +2,7 @@ import networkx as nx
 from pyvis.network import Network
 
 import matplotlib.pyplot as plt
-from typing import List, Tuple, Dict
+from typing import List, Tuple
 
 
 def directed_graph(connections: List[Tuple]) -> None:
