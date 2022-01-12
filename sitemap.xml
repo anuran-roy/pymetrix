@@ -15,4 +15,29 @@
          <lastmod>2022-01-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
+    <url>
+         <loc>https://anuran-roy.github.io/pymetrix/api/flow-api/endpoints/</loc>
+         <lastmod>2022-01-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://anuran-roy.github.io/pymetrix/api/flow-api/flow-graph/</loc>
+         <lastmod>2022-01-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://anuran-roy.github.io/pymetrix/api/flow-api/flow-layer/</loc>
+         <lastmod>2022-01-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://anuran-roy.github.io/pymetrix/api/flow-api/flow-node/</loc>
+         <lastmod>2022-01-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://anuran-roy.github.io/pymetrix/api/metrics-api/usage/</loc>
+         <lastmod>2022-01-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
 </urlset>
