@@ -6,6 +6,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://anuran-roy.github.io/pymetrix/under-construction/</loc>
+         <lastmod>2022-01-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://anuran-roy.github.io/pymetrix/api/notes/</loc>
          <lastmod>2022-01-12</lastmod>
          <changefreq>daily</changefreq>
