@@ -1,6 +1,7 @@
 from typing import List, Dict, Any, Tuple, NewType
 from datetime import datetime
 
+from pymetrix.flow import FlowNodeType
 
 class Plugin:
     def __init__(self) -> None:

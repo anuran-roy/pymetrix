@@ -3,8 +3,8 @@ from typing import NewType, Dict  # , List
 
 class Endpoint:
     def __init__(self, **kwargs):
-        self.hits = kwargs["hits"] if "hits" in kwargs.keys() else 0
-        self.endpoint = kwargs["endpoint"] if "endpoint" in kwargs.keys() else None
+        self.hits: int = kwargs["hits"] if "hits" in kwargs.keys() else 0
+        self.endpoint: str = kwargs["endpoint"] if "endpoint" in kwargs.keys() else None
         self.id = kwargs["id"] if "id" in kwargs.keys() else None
 
     @property
@@ -18,11 +18,11 @@ class Endpoint:
         return self.endpoint
 
     # @endpoint.setter
-    def set_endpoint(self, val) -> None:
+    def set_endpoint(self, val: callable) -> None:
         self.endpoint = val
 
     def run(self, **kwargs):
-        _ = (
+        _: callable = (
             self.endpoint(**kwargs)
             if self.endpoint is not None
             else print("Please append a function to run")
@@ -37,14 +37,14 @@ class Endpoint:
     @property
     def serialize(self) -> Dict:
         return {
-            "endpoint_function": f"{self.id}",
+            "endpoint": f"{self.id}",
             "hits": self.hits,
-            "endpoint": self.endpoint,
+            "endpoint_function": self.endpoint,
         }
 
     @property
     def pretty_serialize(self) -> Dict:
-        return {"endpoint_function": f"{self.id}", "hits": self.hits}
+        return {"endpoint": f"{self.id}", "hits": self.hits}
 
 
 EndpointType = NewType("EndpointType", Endpoint)
