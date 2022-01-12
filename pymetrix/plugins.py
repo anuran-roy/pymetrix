@@ -3,6 +3,7 @@ from datetime import datetime
 
 from pymetrix.flow import FlowNodeType
 
+
 class Plugin:
     def __init__(self) -> None:
         self.nodes_to_monitor: List = []
