@@ -28,10 +28,7 @@ class FlowNode:
 
     @parents.setter
     def parents(self, parents):
-        if type(parents) == type([]):
-            self._parents += parents
-        else:
-            self._parents += [parents]
+        self._parents += parents if type(parents) == type([]) else [parents]
 
     @property
     def children(self):
@@ -48,29 +45,27 @@ class FlowNode:
         if settings.VERBOSE:
             print("comesBefore function invoked!Inserted node=\n")
             print(inserted_node)
-        if inserted_node not in self._children:
-            if settings.VERBOSE:
-                print("Branch 1 invoked!")
-            self._children += [inserted_node]
-            inserted_node._parents += [self]
-        else:
+        if inserted_node in self._children:
             raise errors.DuplicateError(
                 what=inserted_node._name, where=f"list of children of {self._name}"
             )
+        if settings.VERBOSE:
+            print("Branch 1 invoked!")
+        self._children += [inserted_node]
+        inserted_node._parents += [self]
 
     def comesAfter(self, inserted_node):
         if settings.VERBOSE:
             print("comesAfter function invoked!Inserted node=\n")
             print(inserted_node)
-        if inserted_node not in self._children:
-            if settings.VERBOSE:
-                print("Branch 1 invoked!")
-            self._parents.append(inserted_node)
-            inserted_node.children.append(self)
-        else:
+        if inserted_node in self._children:
             raise errors.DuplicateError(
                 what=inserted_node._name, where=f"list of children of {self._name}"
             )
+        if settings.VERBOSE:
+            print("Branch 1 invoked!")
+        self._parents.append(inserted_node)
+        inserted_node.children.append(self)
 
     @property
     def serialize(self) -> Dict:
@@ -86,41 +81,17 @@ class FlowNode:
             print(f"\t\t-> Searching at Node level... Node {self._name}")
         k = set(kwargs.keys())
         if "endpoint_id" in k:
-            if self.endpoint.id == kwargs["endpoint_id"]:
-                return self
-            else:
-                return None
-
+            return self if self.endpoint.id == kwargs["endpoint_id"] else None
         if "endpoint" in k:
-            if self.endpoint.endpoint == kwargs["endpoint"]:
-                return self
-            else:
-                return None
-
+            return self if self.endpoint.endpoint == kwargs["endpoint"] else None
         if "instance" in k and type(kwargs["instance"]) == type(EndpointType):
-            if self.endpoint == kwargs["instance"]:
-                return self
-            else:
-                return None
-
+            return self if self.endpoint == kwargs["instance"] else None
         if "instance" in k and type(kwargs["instance"]) == type(self):
-            if self == kwargs["instance"]:
-                return self
-            else:
-                return None
-
+            return self if self == kwargs["instance"] else None
         if "node" in k:
-            if self._name == kwargs["node_id"]:
-                return self
-            else:
-                return None
-
+            return self if self._name == kwargs["node_id"] else None
         if "parents" in k:
-            if set(kwargs["parents"]).issubset(set(self._parents)):
-                return self
-            else:
-                return None
-
+            return self if set(kwargs["parents"]).issubset(set(self._parents)) else None
         if "children" in k:
             if set(kwargs["children"]).issubset(set(self._children)):
                 return self
@@ -207,27 +178,17 @@ class FlowLayer:
 
     @property
     def gethits(self) -> List:
-        nodes_hit_list: List = []
-        for i in self._nodes:
-            nodes_hit_list.append(i.gethits)
-
-        return nodes_hit_list
+        return [i.gethits for i in self._nodes]
 
     @property
     def serialize(self) -> Dict:
-        serialized_layer: List = []
-
-        for i in self._nodes:
-            serialized_layer.append(i.serialize)
+        serialized_layer: List = [i.serialize for i in self._nodes]
 
         return {"layer_id": self._name, "nodes": serialized_layer}
 
     @property
     def pretty_serialize(self) -> Dict:
-        serialized_layer: List = []
-
-        for i in self._nodes:
-            serialized_layer.append(i.pretty_serialize)
+        serialized_layer: List = [i.pretty_serialize for i in self._nodes]
 
         return {"layer_id": self._name, "nodes": serialized_layer}
 
@@ -245,18 +206,12 @@ class FlowLayer:
         k = set(kwargs.keys())
 
         if "label" in k:
-            if self._name == kwargs["label"]:
-                return self
-            else:
-                return None
-
-        if "instance" in k:
-            if type(self) == type(kwargs["instance"]):
-                return self
+            return self if self._name == kwargs["label"] else None
+        if "instance" in k and type(self) == type(kwargs["instance"]):
+            return self
 
         results = []
-        ct = 1
-        for i in self._nodes:
+        for ct, i in enumerate(self._nodes, start=1):
             if settings.VERBOSE:
                 print(f"\t\t->Searching node {ct}")
             ob = i.search(**kwargs)
@@ -264,12 +219,7 @@ class FlowLayer:
             if ob is not None:
                 results.append(ob)
 
-            ct += 1
-
-        if results == []:
-            return None
-        else:
-            return results
+        return None if results == [] else results
 
     def prettyprint(self):
         print("\n\n=================== Layer Contents ===================\n\n")
@@ -301,29 +251,24 @@ class Flow:
         return nodes_hit_list
 
     def addLayer(self, layer: FlowLayerType, **kwargs):
-        if layer not in self._graph:
-            if "index" in kwargs.keys():
-                left = self._graph[: kwargs["index"]]
-                right = self._graph[kwargs["index"] :]
-                left.append(layer)
-                self._graph = left + right
-            else:
-                self._graph.append(layer)
-        else:
+        if layer in self._graph:
             raise errors.DuplicateError(what=layer._name, where=self._name)
+        if "index" in kwargs.keys():
+            left = self._graph[: kwargs["index"]]
+            right = self._graph[kwargs["index"] :]
+            left.append(layer)
+            self._graph = left + right
+        else:
+            self._graph.append(layer)
 
     @property
     def serialize(self) -> Dict:
-        layers: List = []
-        for i in self._graph:
-            layers.append(i.serialize)
+        layers: List = [i.serialize for i in self._graph]
         return {"flow_id": self._name, "layers": layers}
 
     @property
     def pretty_serialize(self) -> Dict:
-        layers: List = []
-        for i in self._graph:
-            layers.append(i.pretty_serialize)
+        layers: List = [i.pretty_serialize for i in self._graph]
         return {"flow_id": self._name, "layers": layers}
 
     @property
@@ -344,10 +289,7 @@ class Flow:
             if ob is not None:
                 results.append(ob)
 
-        if results == []:
-            return None
-        else:
-            return results
+        return None if results == [] else results
 
     def exists(self, **kwargs):
         try:
