@@ -109,12 +109,23 @@ class Metrics(MetricsBase):
     def pipeline(self, data: str = "time_series", mode: str = "live", **kwargs) -> List:
         last_var = {"id": None, "hits": None, "time": None}
 
-        none_var = {"id": None, "hits": None, "time": None}
         if mode == "live":
             interval: float = (
                 1.0 if "interval" not in kwargs.keys() else kwargs["interval"]
             )
-            if data == "time_series":
+            none_var = {"id": None, "hits": None, "time": None}
+            if data == "aggregate":
+                if "duration" in kwargs.keys():
+                    dest = datetime.now() + timedelta(seconds=kwargs["duration"])
+                    while datetime.now() <= dest:
+                        yield self.aggregate()
+                        # sleep(interval)
+                else:
+                    while True:
+                        yield self.aggregate()
+                        # sleep(interval)
+
+            elif data == "time_series":
                 if "duration" in kwargs.keys():
                     dest = datetime.now() + timedelta(seconds=kwargs["duration"])
                     while datetime.now() <= dest:
@@ -141,23 +152,12 @@ class Metrics(MetricsBase):
                         else:
                             yield none_var
                             # sleep(interval)
-
-            elif data == "aggregate":
-                if "duration" in kwargs.keys():
-                    dest = datetime.now() + timedelta(seconds=kwargs["duration"])
-                    while datetime.now() <= dest:
-                        yield self.aggregate()
-                        # sleep(interval)
-                else:
-                    while True:
-                        yield self.aggregate()
-                        # sleep(interval)
 
         elif mode == "snapshot":
-            if data == "time_series":
-                return self.time_series()
-            elif data == "aggregate":
+            if data == "aggregate":
                 return self.aggregate()
+            elif data == "time_series":
+                return self.time_series()
 
 
 if __name__ == "__main__":

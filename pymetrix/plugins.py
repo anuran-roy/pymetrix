@@ -43,6 +43,3 @@ class Plugin:
 
 
 PluginType = NewType("PluginType", Plugin)
-
-if __name__ == "__main__":
-    PluginType = NewType("PluginType", Plugin)
